@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Archiplans - Convertor and Address Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #3053a0;
+      color: #fff;
+      display: flex;
+      justify-content: center; /* Center the menu items */
+      padding: 10px 0;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    /* Logo container */
+    .logo-container {
+      margin-left: 20px;
+      padding: 5px;
+      cursor: pointer;
+    }
+    .logo-container img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #fff;
+    }
+    .menu a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      text-align: center;
+      font-weight: bold;
+      margin: 0 15px;
+    }
+    .menu a:hover {
+      background-color: #2c4d91;
+    }
+    .content {
+      flex: 1;
+      padding: 20px;
+      background-color: #fff;
+      text-align: center;
+      margin-top: 60px;
+    }
+    .iframe-container {
+      width: 100%;
+      height: 500px;
+      border: none;
+    }
+    .convertor-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    .convertor-container label, .convertor-container select, .convertor-container input, .convertor-container button {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+    }
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .info-section {
+      max-width: 800px;
+      margin: 0 auto;
+      margin-top: 40px;
+    }
+    .info-section h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #3053a0;
+    }
+    .info-section p {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    /* Footer section */
+    .footer {
+      background-color: #3053a0;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    .footer p {
+      font-size: 14px;
+      margin: 5px 0;
+    }
+    /* Make sure the footer content is in two rows */
+    .footer .row {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="menu">
+      <!-- Logo area -->
+      <div class="logo-container" onclick="window.location.href='index.html'">
+        <img src="" alt="Logo" id="logo">
+      </div>
+
+      <!-- Menu links -->
+      <a onclick="showPage('information')">Information</a>
+      <a onclick="showPage('convertor')">Convertor</a>
+      <a onclick="showPage('extractPage')">Çıxarış</a>
+      <a onclick="showPage('technicalPassport')">Texniki Pasport</a>
+      <a onclick="showPage('address')">Address</a>
+    </div>
+
+    <div class="content">
+      <div id="information" class="info-section" style="display: block;">
+        <h2>ARCHİPLANS MMC şirkəti 2016-cı ildən xidmətinizdədir</h2>
+        <p>Ünvan: Azərbaycan Respublikası, Bakı şəhəri, Xətai rayonu, M.Hadi 7</p>
+        <p>Əlaqə nömrələri: <strong>+994124084808</strong>, <strong>+994774084808</strong></p>
+        <p>Email: <strong><a href="mailto:archiplans@mail.ru">archiplans@mail.ru</a></strong></p>
+        <p><strong>Şirkət haqqında məlumat bölməsi boş saxlanılıb və sonradan əlavə ediləcək.</strong></p>
+      </div>
+
+      <div id="convertor" class="convertor-container" style="display: none;">
+        <h2>UTM to Coordinates Convertor</h2>
+        <label for="easting">UTM Easting (meters):</label>
+        <input type="number" id="easting" placeholder="e.g., 500000">
+
+        <label for="northing">UTM Northing (meters):</label>
+        <input type="number" id="northing" placeholder="e.g., 4649776">
+
+        <label for="zone">UTM Zone:</label>
+        <select id="zone">
+          <option value="39">39N</option>
+          <option value="38">38N</option>
+        </select>
+
+        <button onclick="convertUTM()">Convert</button>
+
+        <div class="result" id="result"></div>
+      </div>
+
+      <div id="extractPage" class="iframe-container" style="display: none;">
+        <iframe src="https://e-emlak.gov.az/eemdk/az/CheckElectronExtract" class="iframe-container"></iframe>
+      </div>
+
+      <div id="technicalPassport" class="iframe-container" style="display: none;">
+        <iframe src="https://e-emlak.gov.az/eemdk/az/CheckEPassport" class="iframe-container"></iframe>
+      </div>
+
+      <div id="address" class="iframe-container" style="display: none;">
+        <iframe src="https://unvanportali.az/" class="iframe-container"></iframe>
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+      <div class="row">
+        <p>&copy; ARCHİPLANS™ 2016</p>
+      </div>
+      <div class="row">
+        <p>Bakı şəhəri, Xətai rayonu, M.Hadi 7 | +994 (12) 408-48-08 | +994 (77) 408-48-08 | <a href="mailto:archiplans@mail.ru" style="color: #fff;">archiplans@mail.ru</a> | www.archiplans.net</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showPage(page) {
+      const sections = ['information', 'convertor', 'extractPage', 'technicalPassport', 'address'];
+      sections.forEach(section => {
+        document.getElementById(section).style.display = 'none';
+      });
+      document.getElementById(page).style.display = 'block';
+    }
+
+    function convertUTM() {
+      const easting = parseFloat(document.getElementById('easting').value);
+      const northing = parseFloat(document.getElementById('northing').value);
+      const zone = document.getElementById('zone').value;
+
+      if (isNaN(easting) || isNaN(northing)) {
+        document.getElementById('result').innerText = 'Please enter valid UTM coordinates.';
+        return;
+      }
+
+      // Placeholder for UTM to Lat/Lon conversion logic
+      const lat = 40.3777;  // Example Latitude
+      const lon = 49.8671;  // Example Longitude
+
+      document.getElementById('result').innerHTML = `Coordinates: ${lat}, ${lon} - <a href="https://www.google.com/maps?q=${lat},${lon}" target="_blank">View on Google Maps</a>`;
+    }
+  </script>
+</body>
+</html>
