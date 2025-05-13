@@ -13,15 +13,18 @@
       </div>
       <a onclick="showPage('information')">Information</a>
       <a onclick="showPage('convertor')">Convertor</a>
+      <a onclick="showPage('extractPage')">Çıxarış</a>
+      <a onclick="showPage('technicalPassport')">Texniki Pasport</a>
+      <a onclick="showPage('address')">Address</a>
     </div>
 
     <div class="content">
-      <div id="information" class="content" style="display: block;">
+      <div id="information" class="content-section" style="display: block;">
         <h2>Welcome to Archiplans</h2>
         <p>This website provides tools for coordinate conversion and address search for Azerbaijan.</p>
       </div>
 
-      <div id="convertor" class="convertor-container" style="display: none;">
+      <div id="convertor" class="content-section" style="display: none;">
         <h2>UTM to Coordinates Convertor</h2>
         <label for="easting">UTM Easting (meters):</label>
         <input type="number" id="easting" placeholder="e.g., 500000">
@@ -37,6 +40,18 @@
 
         <button onclick="convertUTM()">Convert</button>
         <div class="result" id="result"></div>
+      </div>
+
+      <div id="extractPage" class="content-section" style="display: none;">
+        <iframe src="https://e-emlak.gov.az/eemdk/az/CheckElectronExtract" width="100%" height="500"></iframe>
+      </div>
+
+      <div id="technicalPassport" class="content-section" style="display: none;">
+        <iframe src="https://e-emlak.gov.az/eemdk/az/CheckEPassport" width="100%" height="500"></iframe>
+      </div>
+
+      <div id="address" class="content-section" style="display: none;">
+        <iframe src="https://unvanportali.az/" width="100%" height="500"></iframe>
       </div>
     </div>
   </div>
