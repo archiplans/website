@@ -23,43 +23,51 @@
       background-color: #3053a0;
       color: #fff;
       display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 20px 0;
+      justify-content: center;
+      padding: 15px 0;
       box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    .logo {
-      margin-left: 20px;
-      width: 60px;
-      height: 60px;
-      background-color: #fff;
-      border-radius: 50%;
     }
     .menu a {
       color: #fff;
       text-decoration: none;
-      padding: 15px 25px;
-      margin: 0 10px;
+      padding: 10px 20px;
       cursor: pointer;
-      text-align: center;
       font-weight: bold;
+      margin: 0 10px;
       transition: background-color 0.3s ease;
     }
     .menu a:hover {
-      background-color: #3a60b2;
+      background-color: #5277d4;
+    }
+    .logo {
+      position: absolute;
+      left: 20px;
+      top: 5px;
+    }
+    .logo img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
     }
     .content {
       flex: 1;
-      padding: 30px;
+      padding: 80px 20px 20px;
       background-color: #fff;
+    }
+    .center-text {
       text-align: center;
     }
     .convertor-container {
       max-width: 600px;
-      margin: 20px auto;
+      margin: 0 auto;
       padding: 20px;
       background-color: #f9f9f9;
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    .convertor-container label, .convertor-container select, .convertor-container input, .convertor-container button {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
     }
     .result {
       margin-top: 10px;
@@ -71,7 +79,7 @@
   <div class="container">
     <div class="menu">
       <div class="logo">
-        <img src="logo2.png" alt="Logo" style="width: 100%; height: 100%; border-radius: 50%;">
+        <img src="logo2.png" alt="Archiplans Logo">
       </div>
       <a onclick="showPage('information')">Information</a>
       <a onclick="showPage('convertor')">Convertor</a>
@@ -79,27 +87,51 @@
       <a onclick="showPage('technicalPassport')">Texniki Pasport</a>
       <a onclick="showPage('address')">Address</a>
     </div>
+
     <div class="content">
-      <div id="information" style="display: block;">
-        <h2>Welcome to Archiplans</h2>
-        <p>This website provides tools for coordinate conversion, address search, and property extracts for Azerbaijan.</p>
+      <div id="information" class="center-text" style="display: block;">
+        <h2>ARCHİPLANS MMC şirkəti 2016-cı ildən xidmətinizdədir</h2>
+        <p>Azərbaycan Respublikası, Bakı şəhəri, Xətai rayonu, M.Hadi 7</p>
+        <p>Əlaqə nömrələri: +994 12 4084808, +994 77 4084808</p>
+        <p>Email: archiplans@mail.ru</p>
       </div>
+
       <div id="convertor" class="convertor-container" style="display: none;">
         <h2>UTM to Coordinates Convertor</h2>
-        <label>UTM Easting (meters):</label>
+        <label for="easting">UTM Easting (meters):</label>
         <input type="number" id="easting" placeholder="e.g., 500000">
-        <label>UTM Northing (meters):</label>
+
+        <label for="northing">UTM Northing (meters):</label>
         <input type="number" id="northing" placeholder="e.g., 4649776">
-        <label>UTM Zone:</label>
+
+        <label for="zone">UTM Zone:</label>
         <select id="zone">
           <option value="39">39N</option>
           <option value="38">38N</option>
         </select>
+
         <button onclick="convertUTM()">Convert</button>
+
         <div class="result" id="result"></div>
+      </div>
+
+      <div id="extractPage" class="center-text" style="display: none;">
+        <h2>Çıxarış Səhifəsi</h2>
+        <iframe src="https://e-emlak.gov.az/eemdk/az/CheckElectronExtract" style="width: 100%; height: 500px; border: none;"></iframe>
+      </div>
+
+      <div id="technicalPassport" class="center-text" style="display: none;">
+        <h2>Texniki Pasport Səhifəsi</h2>
+        <iframe src="https://e-emlak.gov.az/eemdk/az/CheckEPassport" style="width: 100%; height: 500px; border: none;"></iframe>
+      </div>
+
+      <div id="address" class="center-text" style="display: none;">
+        <h2>Address Səhifəsi</h2>
+        <iframe src="https://unvanportali.az/" style="width: 100%; height: 500px; border: none;"></iframe>
       </div>
     </div>
   </div>
+
   <script>
     function showPage(page) {
       const sections = ['information', 'convertor', 'extractPage', 'technicalPassport', 'address'];
@@ -107,6 +139,25 @@
         document.getElementById(section).style.display = 'none';
       });
       document.getElementById(page).style.display = 'block';
+    }
+
+    function convertUTM() {
+      const easting = parseFloat(document.getElementById('easting').value);
+      const northing = parseFloat(document.getElementById('northing').value);
+      const zone = parseInt(document.getElementById('zone').value);
+
+      if (isNaN(easting) || isNaN(northing)) {
+        document.getElementById('result').innerText = 'Please enter valid UTM coordinates.';
+        return;
+      }
+
+      // Example conversion (for illustration purposes only)
+      const lat = northing / 111320;
+      const lon = easting / 111320 - (zone === 39 ? 47 : 46);
+
+      document.getElementById('result').innerHTML = 
+        `Coordinates: ${lat.toFixed(6)}, ${lon.toFixed(6)} - ` + 
+        `<a href="https://www.google.com/maps?q=${lat},${lon}" target="_blank">View on Google Maps</a>`;
     }
   </script>
 </body>
