@@ -56,11 +56,6 @@
       padding: 80px 20px 20px;
       background-color: #fff;
     }
-    .iframe-container {
-      width: 100%;
-      height: 500px;
-      border: none;
-    }
     .convertor-container {
       max-width: 600px;
       margin: 0 auto;
@@ -68,7 +63,7 @@
       background-color: #f9f9f9;
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     }
-    .convertor-container label, .convertor-container select, .convertor-container input, .convertor-container button {
+    .convertor-container label, .convertor-container input, .convertor-container select, .convertor-container button {
       width: 100%;
       margin-bottom: 10px;
       padding: 8px;
@@ -77,18 +72,7 @@
       margin-top: 10px;
       font-weight: bold;
     }
-    .footer {
-      background-color: #3053a0;
-      color: #fff;
-      text-align: center;
-      padding: 10px 0;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      font-size: 14px;
-    }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.1/proj4.js"></script>
 </head>
 <body>
   <div class="container">
@@ -96,20 +80,11 @@
       <div class="logo" onclick="goHome()">
         <img src="logo.png" alt="Archiplans Logo">
       </div>
-      <a onclick="showPage('information')">Information</a>
       <a onclick="showPage('convertor')">Convertor</a>
-      <a onclick="showPage('extractPage')">Çıxarış</a>
-      <a onclick="showPage('technicalPassport')">Texniki Pasport</a>
-      <a onclick="showPage('address')">Address</a>
     </div>
 
     <div class="content">
-      <div id="information" class="content" style="display: block;">
-        <h2>Welcome to Archiplans</h2>
-        <p>This website provides tools for coordinate conversion, address search, and property extracts for Azerbaijan. Use the menu to navigate through the available options.</p>
-      </div>
-
-      <div id="convertor" class="convertor-container" style="display: none;">
+      <div id="convertor" class="convertor-container">
         <h2>UTM to Coordinates Convertor</h2>
         <label for="easting">UTM Easting (meters):</label>
         <input type="number" id="easting" placeholder="e.g., 500000">
@@ -119,72 +94,74 @@
 
         <label for="zone">UTM Zone:</label>
         <select id="zone">
-          <option value="39">39N</option>
           <option value="38">38N</option>
+          <option value="39">39N</option>
         </select>
 
         <button onclick="convertUTM()">Convert</button>
 
         <div class="result" id="result"></div>
       </div>
-
-      <div id="extractPage" class="iframe-container" style="display: none;">
-        <iframe src="https://e-emlak.gov.az/eemdk/az/CheckElectronExtract" class="iframe-container"></iframe>
-      </div>
-
-      <div id="technicalPassport" class="iframe-container" style="display: none;">
-        <iframe src="https://e-emlak.gov.az/eemdk/az/CheckEPassport" class="iframe-container"></iframe>
-      </div>
-
-      <div id="address" class="iframe-container" style="display: none;">
-        <iframe src="https://unvanportali.az/" class="iframe-container"></iframe>
-      </div>
-    </div>
-
-    <div class="footer">
-      © ARCHİPLANS™ 2016<br>
-      Bakı şəhəri, Xətai rayonu, M.Hadi 7; +994 (12) 408-48-08; +994 (77) 408-48-08 | 
-      <a href="mailto:archiplans@mail.ru" style="color: #fff;">archiplans@mail.ru</a>
     </div>
   </div>
 
   <script>
-    function showPage(page) {
-      const sections = ['information', 'convertor', 'extractPage', 'technicalPassport', 'address'];
-      sections.forEach(section => {
-        document.getElementById(section).style.display = 'none';
-      });
-      document.getElementById(page).style.display = 'block';
-    }
-
     function goHome() {
-      showPage('information');
+      alert("Home Clicked");
     }
 
     function convertUTM() {
       const easting = parseFloat(document.getElementById('easting').value);
       const northing = parseFloat(document.getElementById('northing').value);
-      const zone = document.getElementById('zone').value;
+      const zone = parseInt(document.getElementById('zone').value);
 
       if (isNaN(easting) || isNaN(northing)) {
-        document.getElementById('result').innerText = 'Please enter valid UTM coordinates.';
+        document.getElementById('result').innerText = "Please enter valid UTM coordinates.";
         return;
       }
 
-      // UTM Zonasını təyin et
-      const utmZone = 'EPSG:326' + zone; // Nümunə üçün: 'EPSG:32639' 39N zonasını təyin edir
+      const a = 6378137.0;  // WGS84 major axis
+      const f = 1 / 298.257223563;  // WGS84 flattening
+      const k0 = 0.9996;
+      const e = Math.sqrt(1 - Math.pow(1 - f, 2));
+      const e1sq = e * e / (1 - e * e);
+      const n = northing;
+      const e_utm = easting - 500000.0;
+      const northernHemisphere = true;
 
-      try {
-        // UTM koordinatlarını coğrafi koordinatlara çevirmək
-        const proj = proj4(utmZone, 'EPSG:4326', [easting, northing]); // 'EPSG:4326' coğrafi koordinat sistemi
+      const latOrigin = 0.0;
+      const longOrigin = (zone - 1) * 6 - 180 + 3;
+      const mu = n / (a * k0);
+      const e1 = (1 - Math.sqrt(1 - e * e)) / (1 + Math.sqrt(1 - e * e));
 
-        const lat = proj[1];  // Enlik
-        const lon = proj[0];  // Uzunluq
+      let phi1 = mu + (3 * e1 / 2 - 27 * Math.pow(e1, 3) / 32) * Math.sin(2 * mu) 
+                 + (21 * Math.pow(e1, 2) / 16 - 55 * Math.pow(e1, 4) / 32) * Math.sin(4 * mu)
+                 + (151 * Math.pow(e1, 3) / 96) * Math.sin(6 * mu);
 
-        document.getElementById('result').innerHTML = `Coordinates: ${lat.toFixed(6)}, ${lon.toFixed(6)} - <a href="https://www.google.com/maps?q=${lat},${lon}" target="_blank">View on Google Maps</a>`;
-      } catch (error) {
-        document.getElementById('result').innerText = 'Error in conversion. Please check the input values.';
-      }
+      const sinPhi1 = Math.sin(phi1);
+      const tanPhi1 = Math.tan(phi1);
+      const cosPhi1 = Math.cos(phi1);
+
+      const N1 = a / Math.sqrt(1 - e * e * sinPhi1 * sinPhi1);
+      const T1 = tanPhi1 * tanPhi1;
+      const C1 = e1sq * cosPhi1 * cosPhi1;
+      const R1 = a * (1 - e * e) / Math.pow(1 - e * e * sinPhi1 * sinPhi1, 1.5);
+      const D = e_utm / (N1 * k0);
+
+      const lat = phi1 - (N1 * tanPhi1 / R1) * 
+                  (D * D / 2 - (5 + 3 * T1 + 10 * C1 - 4 * C1 * C1 - 9 * e1sq) * Math.pow(D, 4) / 24 
+                  + (61 + 90 * T1 + 298 * C1 + 45 * T1 * T1 - 252 * e1sq - 3 * C1 * C1) * Math.pow(D, 6) / 720);
+
+      const lon = longOrigin + (D - (1 + 2 * T1 + C1) * Math.pow(D, 3) / 6 
+                   + (5 - 2 * C1 + 28 * T1 - 3 * C1 * C1 + 8 * e1sq + 24 * T1 * T1) * Math.pow(D, 5) / 120) 
+                   / cosPhi1;
+
+      const latitude = lat * (180 / Math.PI);
+      const longitude = lon * (180 / Math.PI);
+
+      document.getElementById('result').innerHTML = 
+        `Coordinates: ${latitude.toFixed(6)}, ${longitude.toFixed(6)}<br>
+        <a href="https://www.google.com/maps?q=${latitude},${longitude}" target="_blank">View on Google Maps</a>`;
     }
   </script>
 </body>
