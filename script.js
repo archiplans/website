@@ -1,6 +1,6 @@
 // script.js
 
-// Funksiya: Menyu səhifələrini göstərmək
+// Səhifə dəyişmə funksiyası
 function showPage(page) {
   const sections = document.querySelectorAll('.content-section');
   sections.forEach(section => section.style.display = 'none');
@@ -11,7 +11,12 @@ function showPage(page) {
   }
 }
 
-// Koordinat Çevirici
+// Əsas səhifəyə qayıtma funksiyası
+function goHome() {
+  showPage('information');
+}
+
+// Koordinat çevirici funksiyası
 function convertUTM() {
   const easting = parseFloat(document.getElementById('easting').value);
   const northing = parseFloat(document.getElementById('northing').value);
