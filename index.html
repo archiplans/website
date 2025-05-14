@@ -72,5 +72,26 @@
       <br> www.archiplans.net | archiplans@mail.ru
     </div>
   </div>
+
+  <script>
+    function toggleMenu() {
+      const menuLinks = document.getElementById("menu-links");
+      menuLinks.classList.toggle("active");
+    }
+
+    function hideMenu() {
+      const menuLinks = document.getElementById("menu-links");
+      menuLinks.classList.remove("active");
+    }
+
+    function showPage(pageId) {
+      const pages = document.querySelectorAll(".content > div");
+      pages.forEach(page => {
+        page.style.display = "none";
+      });
+      document.getElementById(pageId).style.display = "block";
+    }
+  </script>
+
 </body>
 </html>
