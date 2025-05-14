@@ -20,12 +20,13 @@
       top: 0;
       left: 0;
       width: 100%;
+      height: 100px;
       background-color: #3053a0;
       color: #fff;
       display: flex;
       justify-content: space-around;
       align-items: center;
-      padding: 20px 0;
+      padding: 0;
       box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     }
     .logo {
@@ -50,7 +51,7 @@
     }
     .content {
       flex: 1;
-      padding: 100px 30px 30px;
+      padding: 120px 30px 30px;
       background-color: #fff;
       text-align: center;
     }
@@ -82,7 +83,7 @@
     <div class="content">
       <div id="information" style="display: block;">
         <h2>Welcome to Archiplans</h2>
-        <p>This website provides tools for coordinate conversion, address search, and property extracts for Azerbaijan.</p>
+        <p style="text-align: center;">This website provides tools for coordinate conversion, address search, and property extracts for Azerbaijan.</p>
       </div>
       <div id="convertor" class="convertor-container" style="display: none;">
         <h2>UTM to Coordinates Convertor</h2>
@@ -109,6 +110,30 @@
       });
       const selectedSection = document.getElementById(page);
       if (selectedSection) selectedSection.style.display = 'block';
+    }
+
+    function convertUTM() {
+      const easting = parseFloat(document.getElementById('easting').value);
+      const northing = parseFloat(document.getElementById('northing').value);
+      const zone = parseInt(document.getElementById('zone').value);
+
+      if (!easting || !northing || !zone) {
+        document.getElementById('result').innerText = 'Please enter valid UTM coordinates and zone.';
+        return;
+      }
+
+      const a = 6378137;
+      const e = 0.081819190842622;
+
+      const e1sq = e * e / (1 - e * e);
+      const x = easting - 500000;
+      const y = northing;
+
+      const lat = y / 111320;
+      const lon = x / (111320 * Math.cos(lat * (Math.PI / 180))) + zone * 6 - 183;
+
+      document.getElementById('result').innerText = `Latitude: ${lat.toFixed(6)}
+Longitude: ${lon.toFixed(6)}`;
     }
   </script>
 </body>
