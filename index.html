@@ -57,12 +57,32 @@
       background-color: #466bbd;
     }
 
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      padding-right: 20px;
+    }
+
+    .hamburger div {
+      width: 30px;
+      height: 4px;
+      background-color: white;
+      margin: 5px 0;
+      transition: 0.3s;
+    }
+
     .content {
       flex: 1;
       overflow-y: auto;
       overflow-x: hidden;
       padding: 20px;
       background-color: #fff;
+    }
+
+    .iframe-container {
+      width: 100%;
+      height: 500px;
+      border: none;
     }
 
     .convertor-container {
@@ -99,56 +119,190 @@
     .info {
       text-align: center;
     }
+
+    @media (max-width: 768px) {
+      .menu {
+        justify-content: center;
+      }
+
+      .logo {
+        position: absolute;
+        left: 20px;
+      }
+
+      .menu a {
+        display: none;
+        padding: 10px;
+        font-size: 14px;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .hamburger.active div {
+        background-color: #fff;
+        transform: rotate(45deg);
+        position: absolute;
+        top: 8px;
+      }
+
+      .hamburger.active div:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active div:nth-child(3) {
+        background-color: #fff;
+        transform: rotate(-45deg);
+        position: absolute;
+        top: 8px;
+      }
+
+      .menu.open {
+        display: block;
+        position: absolute;
+        top: 50px;
+        background-color: #3053a0;
+        width: 100%;
+        text-align: center;
+      }
+
+      .menu.open a {
+        display: block;
+        text-align: center;
+        font-size: 18px;
+      }
+
+      .convertor-container {
+        width: 100%;
+        padding: 15px;
+        box-sizing: border-box;
+      }
+
+      .content {
+        padding: 10px;
+      }
+
+      .footer {
+        display: block;
+        padding: 10px;
+        text-align: center;
+        font-size: 12px;
+      }
+
+      .menu.open a:hover {
+        background-color: #466bbd;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="menu">
-      <div class="logo">
+      <div class="logo" onclick="showPage('information')">
         <img src="logo2.png" alt="Logo">
       </div>
-      <a href="#" onclick="showPage('information')">Information</a>
-      <a href="#" onclick="showPage('convertor')">Convertor</a>
+      <span class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </span>
+      <a onclick="showPage('information')">Information</a>
+      <a onclick="showPage('convertor')">Convertor</a>
+      <a onclick="showPage('extractPage')">Çıxarış</a>
+      <a onclick="showPage('technicalPassport')">Texniki Pasport</a>
+      <a onclick="showPage('address')">Address</a>
     </div>
 
     <div class="content">
-      <!-- Convertor Section -->
-      <div id="convertor" class="convertor-container" style="display: block;">
-        <h2>UTM to Coordinates Convertor</h2>
-        <form id="converter-form">
-          <label for="latitude">Latitude:</label>
-          <input type="number" id="latitude" placeholder="Enter latitude" required>
-
-          <label for="longitude">Longitude:</label>
-          <input type="number" id="longitude" placeholder="Enter longitude" required>
-
-          <label for="zone">Zone:</label>
-          <select id="zone">
-            <option value="39N">39N</option>
-            <option value="38N">38N</option>
-          </select>
-
-          <button type="submit">Convert</button>
-        </form>
-        <div class="result" id="converted-coordinates"></div>
-      </div>
-
       <!-- Information Section -->
-      <div id="information" class="info" style="display: none;">
+      <div id="information" class="info" style="display: block;">
         <h2>Welcome to Archiplans</h2>
         <p>ARCHİPLANS MMC şirkəti 2016-cı ildən xidmətinizdədir</p>
         <p>Azərbaycan Respublikası, Bakı şəhəri, Xətai rayonu, M.Hadi 7</p>
         <p>Əlaqə nömrələri: +994 (12) 408-48-08, +994 (77) 408-48-08</p>
         <p>Email: archiplans@mail.ru</p>
       </div>
+
+      <!-- Convertor Section -->
+      <div id="convertor" class="convertor-container" style="display: none;">
+        <h2>UTM to Coordinates Convertor</h2>
+        <form id="converter-form">
+          <label for="latitude">Latitude:</label>
+          <input type="number" id="latitude" placeholder="e.g., 40.3777" required>
+
+          <label for="longitude">Longitude:</label>
+          <input type="number" id="longitude" placeholder="e.g., 49.8622" required>
+
+          <label for="zone">Zone:</label>
+          <select id="zone" required>
+            <option value="39N">39N</option>
+            <option value="38N">38N</option>
+          </select>
+
+          <button type="submit">Convert</button>
+        </form>
+        <div id="converted-coordinates" class="result"></div>
+      </div>
+
+      <!-- Other sections can go here -->
     </div>
 
     <div class="footer">
-      © ARCHİPLANS™ 2016<br>
-      Bakı şəhəri, Xətai rayonu, M.Hadi 7; +994 (12) 408-48-08; +994 (77) 408-48-08 www.archiplans.net | archiplans@mail.ru
+      <p>© 2025 Archiplans MMC. All rights reserved.</p>
     </div>
   </div>
 
-  <script src="converter.js"></script>
+  <script>
+    // Konvertasiya funksiyası
+    function convertCoordinates(latitude, longitude, zone) {
+      let convertedLat = 0;
+      let convertedLon = 0;
+
+      if (zone === '39N') {
+        // 39N zonası üçün konvertasiya
+        convertedLat = latitude + 0.1;  // Formula nümunədir, əslində doğru formul olacaq
+        convertedLon = longitude + 0.1; // Formula nümunədir, əslində doğru formul olacaq
+      } else if (zone === '38N') {
+        // 38N zonası üçün konvertasiya
+        convertedLat = latitude + 0.2;  // Formula nümunədir, əslində doğru formul olacaq
+        convertedLon = longitude + 0.2; // Formula nümunədir, əslində doğru formul olacaq
+      }
+
+      return { lat: convertedLat, lon: convertedLon };
+    }
+
+    // Formu göndərərkən konvertasiyanı həyata keçiririk
+    document.getElementById('converter-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Daxil edilən məlumatları oxuyuruq
+      const zone = document.getElementById('zone').value;
+      const latitude = parseFloat(document.getElementById('latitude').value);
+      const longitude = parseFloat(document.getElementById('longitude').value);
+
+      // Koordinatları konvertasiya edirik
+      const result = convertCoordinates(latitude, longitude, zone);
+
+      // Nəticəni ekrana göstəririk
+      const resultElement = document.getElementById('converted-coordinates');
+      resultElement.textContent = `Converted Latitude: ${result.lat}, Converted Longitude: ${result.lon}`;
+    });
+
+    // Toggle menu for mobile
+    function toggleMenu() {
+      document.querySelector('.hamburger').classList.toggle('active');
+      document.querySelector('.menu').classList.toggle('open');
+    }
+
+    // Show different pages
+    function showPage(page) {
+      const pages = ['information', 'convertor', 'extractPage', 'technicalPassport', 'address'];
+      pages.forEach(function (pageId) {
+        document.getElementById(pageId).style.display = 'none';
+      });
+      document.getElementById(page).style.display = 'block';
+    }
+  </script>
 </body>
 </html>
