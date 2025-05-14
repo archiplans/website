@@ -65,22 +65,6 @@
     </div>
   </div>
 
-  <script>
-    function showPage(page) {
-      const sections = ['information', 'convertor', 'extractPage', 'technicalPassport', 'address'];
-      sections.forEach(section => {
-        document.getElementById(section).style.display = 'none';
-      });
-      document.getElementById(page).style.display = 'block';
-
-      // Mobil versiyada menyunu bağla
-      document.querySelector('.menu-links').classList.remove('active');
-    }
-
-    function toggleMenu() {
-      const menuLinks = document.querySelector('.menu-links');
-      menuLinks.classList.toggle('active');
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
