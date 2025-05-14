@@ -20,7 +20,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 120px;
+      height: 130px;
       background-color: #3053a0;
       color: #fff;
       display: flex;
@@ -31,8 +31,8 @@
       z-index: 1000;
     }
     .logo {
-      width: 100px;
-      height: 100px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
       overflow: hidden;
       cursor: pointer;
@@ -46,7 +46,7 @@
       color: #fff;
       text-decoration: none;
       padding: 15px 20px;
-      margin: 0 10px;
+      margin: 0 15px;
       cursor: pointer;
       text-align: center;
       font-weight: bold;
@@ -146,7 +146,7 @@
       }
 
       const lat = (northing / 111320).toFixed(6);
-      const lon = ((easting - 500000) / 111320).toFixed(6);
+      const lon = ((easting - 500000) / (zone === 39 ? 111320 : 111200)).toFixed(6);
 
       document.getElementById('result').innerText = `Latitude: ${lat}\nLongitude: ${lon}`;
     }
