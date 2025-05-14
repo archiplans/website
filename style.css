@@ -18,22 +18,17 @@ body, html {
   background-color: #3053a0;
   color: #fff;
   display: flex;
-  justify-content: space-around;
-  padding: 15px 0;
+  justify-content: space-between;
+  align-items: center;  /* Ensures logo and menu are aligned vertically */
+  padding: 15px 20px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
-  position: relative;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  padding-left: 20px;
   cursor: pointer;
-  position: absolute;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .logo img {
@@ -58,7 +53,7 @@ body, html {
 .content {
   flex: 1;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: hidden; /* Sağa-sola scroll aradan qaldırıldı */
   padding: 20px;
   background-color: #fff;
 }
@@ -107,73 +102,27 @@ body, html {
 /* Mobil versiya üçün tənzimləmələr */
 @media (max-width: 768px) {
   .menu {
-    justify-content: space-between;
-    padding: 10px 15px;
+    justify-content: center;  /* Centers the logo and menu */
   }
 
   .logo {
     position: absolute;
-    top: 50%;
-    left: 20px;
-    transform: translateY(-50%);
+    left: 20px;  /* Keeps the logo to the left */
+    top: 50%;  /* Adjusts the logo's vertical position */
+    transform: translateY(-50%);  /* Vertically centers the logo */
   }
 
   .menu a {
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  .convertor-container {
-    width: 100%;
-    padding: 15px;
-    box-sizing: border-box;
+    display: none;  /* Hides the menu items on mobile */
   }
 
   .content {
     padding: 10px;
   }
+}
 
+@media (max-width: 768px) {
   .footer {
-    display: block;
-    font-size: 10px;
-  }
-
-  .menu a.menu-item {
-    display: none;
-  }
-
-  .menu-icon {
-    display: block;
-    cursor: pointer;
-    font-size: 24px;
-  }
-
-  /* Hamburger Menyu */
-  .menu.active {
-    display: block;
-    position: fixed;
-    top: 0;
-    right: 0;
-    background-color: #3053a0;
-    width: 100%;
-    height: 100vh;
-    justify-content: flex-start;
-    align-items: flex-start;
-    z-index: 10;
-  }
-
-  .menu.active a {
-    display: block;
-    padding: 15px;
-    font-size: 18px;
-    width: 100%;
-    text-align: left;
-  }
-
-  .menu a.active {
-    display: block;
+    display: block; /* Ensure footer is visible on mobile */
   }
 }
-  </style>
-</head>
-<body>
