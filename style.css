@@ -1,46 +1,70 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden; /* Ümumi scroll-u aradan qaldırırıq */
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
 .menu {
   background-color: #3053a0;
   color: #fff;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;  /* Menyu elementi ilə bərabər yerləşmə */
+  align-items: center;  /* Vertikal mərkəzləşdirmə */
   padding: 15px 0;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
 }
 
-.footer {
-  background-color: #3053a0;
-  color: #fff;
-  padding: 10px;
-  text-align: center;
-  font-size: 12px;
+.logo {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  cursor: pointer;
+  height: 50px;  /* Logonun hündürlüyü */
 }
 
-.content {
-  flex: 1;
-  overflow-y: auto; /* Yalnız content bölməsi scroll olunacaq */
-  padding: 20px;
-  background-color: #fff;
+.hamburger {
+  display: none;
+  cursor: pointer;
+  padding-right: 20px;
+  height: 50px;  /* Hamburger işarəsinin hündürlüyü */
 }
 
-.convertor-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+.hamburger div {
+  width: 30px;
+  height: 4px;
+  background-color: white;
+  margin: 5px 0;
+  transition: 0.3s;
+}
+
+@media (max-width: 768px) {
+  .menu {
+    justify-content: center;
+  }
+
+  .logo {
+    position: absolute;
+    left: 20px;
+    top: 50%;  /* Logo vertikal mərkəzləşdirmə */
+    transform: translateY(-50%);
+  }
+
+  .hamburger {
+    display: block;
+    top: 50%;  /* Hamburger menyu işarəsi mərkəzləşdirildi */
+    transform: translateY(-50%);
+  }
+
+  .hamburger.active div {
+    background-color: #fff;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 8px;
+  }
+
+  .hamburger.active div:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active div:nth-child(3) {
+    background-color: #fff;
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 8px;
+  }
 }
