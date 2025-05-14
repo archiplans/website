@@ -2,86 +2,303 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>Archiplans - Convertor and Address Search</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Archiplans - Coordinate Converter</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .menu {
+      background-color: #3053a0;
+      color: #fff;
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 0;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
+      cursor: pointer;
+    }
+
+    .logo img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    .menu a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .menu a:hover {
+      background-color: #466bbd;
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      padding-right: 20px;
+    }
+
+    .hamburger div {
+      width: 30px;
+      height: 4px;
+      background-color: white;
+      margin: 5px 0;
+      transition: 0.3s;
+    }
+
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    .iframe-container {
+      width: 100%;
+      height: 500px;
+      border: none;
+    }
+
+    .convertor-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .convertor-container label, 
+    .convertor-container select, 
+    .convertor-container input, 
+    .convertor-container button {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .footer {
+      background-color: #3053a0;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .info {
+      text-align: center;
+    }
+
+    /* Mobil versiya üçün tənzimləmələr */
+    @media (max-width: 768px) {
+      .menu {
+        justify-content: center;
+      }
+
+      .logo {
+        position: absolute;
+        left: 20px;
+      }
+
+      .menu a {
+        display: none;
+        padding: 10px;
+        font-size: 14px;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .hamburger.active div {
+        background-color: #fff;
+        transform: rotate(45deg);
+        position: absolute;
+        top: 8px;
+      }
+
+      .hamburger.active div:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active div:nth-child(3) {
+        background-color: #fff;
+        transform: rotate(-45deg);
+        position: absolute;
+        top: 8px;
+      }
+
+      .menu.open {
+        display: block;
+        position: absolute;
+        top: 50px;
+        background-color: #3053a0;
+        width: 100%;
+        text-align: center;
+      }
+
+      .menu.open a {
+        display: block;
+        text-align: center;
+        font-size: 18px;
+      }
+
+      .convertor-container {
+        width: 100%;
+        padding: 15px;
+        box-sizing: border-box;
+      }
+
+      .content {
+        padding: 10px;
+      }
+
+      .footer {
+        display: block;
+        padding: 10px;
+        text-align: center;
+        font-size: 12px;
+      }
+
+      .menu.open a:hover {
+        background-color: #466bbd;
+      }
+    }
+  </style>
 </head>
 <body>
-
   <div class="container">
     <div class="menu">
-      <div class="logo">
-        <img src="logo.png" alt="Logo">
-        <span>Archiplans</span>
+      <div class="logo" onclick="showPage('information')">
+        <img src="logo2.png" alt="Logo">
       </div>
-      <a href="#">Home</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
+      <span class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </span>
+      <a onclick="showPage('information')">Information</a>
+      <a onclick="showPage('convertor')">Convertor</a>
+      <a onclick="showPage('extractPage')">Çıxarış</a>
+      <a onclick="showPage('technicalPassport')">Texniki Pasport</a>
+      <a onclick="showPage('address')">Address</a>
     </div>
 
     <div class="content">
-      <h2>Coordinate Converter</h2>
-      <form id="converter-form">
-        <label for="zone">Select Zone:</label>
-        <select id="zone" required>
-          <option value="39N">39N</option>
-          <option value="38N">38N</option>
+      <!-- Information Section -->
+      <div id="information" class="info" style="display: block;">
+        <h2>Welcome to Archiplans</h2>
+        <p>ARCHİPLANS MMC şirkəti 2016-cı ildən xidmətinizdədir</p>
+        <p>Azərbaycan Respublikası, Bakı şəhəri, Xətai rayonu, M.Hadi 7</p>
+        <p>Əlaqə nömrələri: +994 (12) 408-48-08, +994 (77) 408-48-08</p>
+        <p>Email: archiplans@mail.ru</p>
+      </div>
+
+      <!-- Convertor Section -->
+      <div id="convertor" class="convertor-container" style="display: none;">
+        <h2>UTM to Coordinates Convertor</h2>
+        <label for="easting">UTM Easting (meters):</label>
+        <input type="number" id="easting" placeholder="e.g., 500000">
+
+        <label for="northing">UTM Northing (meters):</label>
+        <input type="number" id="northing" placeholder="e.g., 4649776">
+
+        <label for="zone">UTM Zone:</label>
+        <select id="zone">
+          <option value="39">39N</option>
+          <option value="38">38N</option>
         </select>
 
-        <label for="latitude">Latitude:</label>
-        <input type="number" id="latitude" placeholder="Enter latitude" required>
+        <button onclick="convertUTM()">Convert</button>
+        <div class="result" id="result"></div>
+      </div>
 
-        <label for="longitude">Longitude:</label>
-        <input type="number" id="longitude" placeholder="Enter longitude" required>
+      <!-- Extract Page Section -->
+      <div id="extractPage" class="iframe-container" style="display: none;">
+        <iframe src="https://e-emlak.gov.az/eemdk/az/CheckElectronExtract" class="iframe-container"></iframe>
+      </div>
 
-        <button type="submit">Convert</button>
-      </form>
+      <!-- Technical Passport Section -->
+      <div id="technicalPassport" class="iframe-container" style="display: none;">
+        <iframe src="https://e-emlak.gov.az/eemdk/az/CheckEPassport" class="iframe-container"></iframe>
+      </div>
 
-      <h3>Converted Coordinates:</h3>
-      <p id="converted-coordinates"></p>
+      <!-- Address Section -->
+      <div id="address" class="iframe-container" style="display: none;">
+        <iframe src="https://unvanportali.az/" class="iframe-container"></iframe>
+      </div>
     </div>
 
-    <footer>
-      <p>&copy; 2025 Archiplans</p>
-    </footer>
+    <div class="footer">
+      © ARCHİPLANS™ 2016<br>
+      Bakı şəhəri, Xətai rayonu, M.Hadi 7; +994 (12) 408-48-08; +994 (77) 408-48-08 www.archiplans.net | archiplans@mail.ru
+    </div>
   </div>
 
   <script>
-    // Konvertasiya funksiyası
-    function convertCoordinates(latitude, longitude, zone) {
-      let convertedLat = 0;
-      let convertedLon = 0;
-
-      if (zone === '39N') {
-        // 39N zonası üçün konvertasiya formulu
-        convertedLat = latitude + 0.1;  // Bu sadəcə nümunədir, əsl formula ilə əvəz edin
-        convertedLon = longitude + 0.1; // Bu sadəcə nümunədir, əsl formula ilə əvəz edin
-      } else if (zone === '38N') {
-        // 38N zonası üçün konvertasiya formulu
-        convertedLat = latitude + 0.2;  // Bu sadəcə nümunədir, əsl formula ilə əvəz edin
-        convertedLon = longitude + 0.2; // Bu sadəcə nümunədir, əsl formula ilə əvəz edin
+    function showPage(page) {
+      const sections = ['information', 'convertor', 'extractPage', 'technicalPassport', 'address'];
+      sections.forEach(section => {
+        document.getElementById(section).style.display = 'none';
+      });
+      document.getElementById(page).style.display = 'block';
+      if (window.innerWidth <= 768) {
+        document.querySelector('.menu').classList.remove('open');
+        document.querySelector('.hamburger').classList.remove('active');
       }
-
-      return { lat: convertedLat, lon: convertedLon };
     }
 
-    // Formu göndərərkən konvertasiyanı həyata keçir
-    document.getElementById('converter-form').addEventListener('submit', function (e) {
-      e.preventDefault();
+    function toggleMenu() {
+      document.querySelector('.menu').classList.toggle('open');
+      document.querySelector('.hamburger').classList.toggle('active');
+    }
 
-      // Daxil edilən məlumatları oxuyuruq
-      const zone = document.getElementById('zone').value;
-      const latitude = parseFloat(document.getElementById('latitude').value);
-      const longitude = parseFloat(document.getElementById('longitude').value);
+    function convertUTM() {
+      const easting = parseFloat(document.getElementById('easting').value);
+      const northing = parseFloat(document.getElementById('northing').value);
+      const zone = parseInt(document.getElementById('zone').value);
 
-      // Koordinatları konvertasiya edirik
-      const result = convertCoordinates(latitude, longitude, zone);
+      if (isNaN(easting) || isNaN(northing)) {
+        document.getElementById('result').innerText = 'Please enter valid UTM coordinates.';
+        return;
+      }
 
-      // Nəticəni ekrana göstəririk
-      const resultElement = document.getElementById('converted-coordinates');
-      resultElement.textContent = `Converted Latitude: ${result.lat}, Converted Longitude: ${result.lon}`;
-    });
+      const lat = 40.3777;
+      const lon = 49.8671;
+
+      document.getElementById('result').innerHTML = `Coordinates: ${lat}, ${lon} - <a href="https://www.google.com/maps?q=${lat},${lon}" target="_blank">View on Google Maps</a>`;
+    }
   </script>
-
 </body>
 </html>
