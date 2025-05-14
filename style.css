@@ -1,24 +1,23 @@
-body, html {
+/* Ümumi tərtibat */
+body {
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  height: 100%;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+  box-sizing: border-box;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow: hidden;
 }
 
+/* Menyu */
 .menu {
   background-color: #3053a0;
   color: #fff;
   display: flex;
-  justify-content: center;  /* Menyu mərkəzə düzüləcək */
+  justify-content: center;  /* Menyunu mərkəzə düzəldirik */
   align-items: center;
   padding: 15px 20px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
@@ -26,122 +25,84 @@ body, html {
   position: relative;
 }
 
-.logo {
+.menu .logo {
   display: flex;
   align-items: center;
   cursor: pointer;
-  position: absolute;  /* Logo mərkəzləşəcək */
+  position: absolute;
   left: 20px;  /* Logo sola uyğunlaşdırılır */
+  top: 50%;  /* Şaquli mərkəzləşdirmə */
+  transform: translateY(-50%);  /* Mərkəzləşdirmə */
 }
 
-.logo img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
-
-.menu-links {
-  display: flex;
-  justify-content: center;  /* Menü linkləri mərkəzləşəcək */
-}
-
-.menu-links a {
-  color: #fff;
-  text-decoration: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.menu-links a:hover {
-  background-color: #466bbd;
-}
-
-.hamburger {
+.menu .hamburger {
   display: none;
   font-size: 30px;
   cursor: pointer;
 }
 
-.content {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden; /* Sağa-sola scroll aradan qaldırıldı */
-  padding: 20px;
-  background-color: #fff;
-}
-
-.iframe-container {
+.menu-links {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  height: 500px;
-  border: none;
 }
 
-.convertor-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-.convertor-container label, 
-.convertor-container select, 
-.convertor-container input, 
-.convertor-container button {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 8px;
-}
-
-.result {
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-.footer {
-  background-color: #3053a0;
+.menu-links a {
   color: #fff;
-  padding: 10px;
-  text-align: center;
-  font-size: 12px;
-  flex-shrink: 0;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 16px;
 }
 
-.info {
-  text-align: center;
+.menu-links a:hover {
+  color: #f0a500;
 }
 
-/* Mobil versiya üçün tənzimləmələr */
+/* Mobil Versiya */
 @media (max-width: 768px) {
-  .menu {
-    justify-content: center;  /* Menü mərkəzləşəcək */
-  }
-
-  .logo {
-    position: absolute;
-    left: 20px;  /* Logo sola uyğunlaşdırılır */
-    top: 50%;  /* Logo şaquli mərkəzləşəcək */
-    transform: translateY(-50%);  /* Mərkəzləşdirmə */
-  }
-
   .menu-links {
-    display: none;
+    display: none;  /* Əvvəlcə menyu gizlidir */
     flex-direction: column;
     text-align: center;
     width: 100%;
   }
 
   .menu-links.active {
-    display: flex;
+    display: flex;  /* Menyu açıldıqda göstərilsin */
   }
 
-  .hamburger {
-    display: block;
+  .menu .hamburger {
+    display: block;  /* Hamburger ikonu mobil versiyada göstərilsin */
   }
 
-  .footer {
-    display: block; /* Footer görünəcək */
+  .logo {
+    position: absolute;
+    left: 20px;  /* Logo sola uyğunlaşdırılır */
+    top: 50%;  /* Şaquli mərkəzləşdirmə */
+    transform: translateY(-50%);  /* Mərkəzləşdirmə */
   }
+
+  .menu .logo img {
+    width: 120px;  /* Logo ölçüsünü uyğunlaşdırır */
+  }
+}
+
+/* Kontent sahəsi */
+.content {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.info, .convertor-container, .iframe-container {
+  padding: 20px;
+}
+
+/* Footer */
+.footer {
+  background-color: #f1f1f1;
+  color: #333;
+  text-align: center;
+  padding: 10px 0;
+  position: relative;
+  bottom: 0;
 }
