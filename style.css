@@ -1,22 +1,11 @@
-/* Ümumi səhifə tərzi */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f0f0f0;
-}
-
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-.container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  padding-top: 60px; /* Menyun hündürlüyü ilə uyğun olaraq yuxarıdan boşluq veririk */
+  height: 100vh; /* Full screen height */
 }
 
 .menu {
@@ -30,40 +19,29 @@ body, html {
   justify-content: space-around;
   padding: 15px 0;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 10; /* Menyu digər məzmunlardan üstün olsun */
+  z-index: 1000; /* Ensure the menu is always on top */
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  padding-left: 20px;
-  cursor: pointer;
-}
-
-.logo img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
-
-.menu a {
+.footer {
+  background-color: #3053a0;
   color: #fff;
-  text-decoration: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.menu a:hover {
-  background-color: #466bbd;
+  padding: 10px;
+  text-align: center;
+  font-size: 12px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure footer stays above other content */
 }
 
 .content {
   flex: 1;
-  padding: 20px;
+  padding: 100px 20px 40px; /* Ensure content doesn't go under the header */
   background-color: #fff;
-  padding-top: 20px; /* Üst hissəyə əlavə boşluq verir */
+  overflow-y: auto; /* Enable scrolling for the content */
+  margin-top: 80px; /* To ensure content is visible under the fixed header */
+  margin-bottom: 40px; /* Space for the footer */
 }
 
 .iframe-container {
@@ -78,35 +56,4 @@ body, html {
   padding: 20px;
   background-color: #f9f9f9;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-.convertor-container label, .convertor-container select, .convertor-container input, .convertor-container button {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 8px;
-}
-
-.result {
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-.footer {
-  background-color: #3053a0;
-  color: #fff;
-  padding: 10px;
-  text-align: center;
-  font-size: 12px;
-  white-space: nowrap;
-}
-
-/* Mobil üçün uyğunlaşdırmalar */
-@media (max-width: 768px) {
-  .menu {
-    padding: 10px 0;
-  }
-
-  .container {
-    padding-top: 50px; /* Telefon ekranı üçün daha kiçik boşluq */
-  }
 }
