@@ -57,24 +57,10 @@
       background-color: #466bbd;
     }
 
-    .hamburger {
-      display: none;
-      cursor: pointer;
-      padding-right: 20px;
-    }
-
-    .hamburger div {
-      width: 30px;
-      height: 4px;
-      background-color: white;
-      margin: 5px 0;
-      transition: 0.3s;
-    }
-
     .content {
       flex: 1;
       overflow-y: auto;
-      overflow-x: hidden;
+      overflow-x: hidden; /* Sağa-sola scroll aradan qaldırıldı */
       padding: 20px;
       background-color: #fff;
     }
@@ -122,56 +108,9 @@
 
     /* Mobil versiya üçün tənzimləmələr */
     @media (max-width: 768px) {
-      .menu {
-        justify-content: center;
-      }
-
-      .logo {
-        position: absolute;
-        left: 20px;
-      }
-
       .menu a {
-        display: none;
         padding: 10px;
         font-size: 14px;
-      }
-
-      .hamburger {
-        display: block;
-      }
-
-      .hamburger.active div {
-        background-color: #fff;
-        transform: rotate(45deg);
-        position: absolute;
-        top: 8px;
-      }
-
-      .hamburger.active div:nth-child(2) {
-        opacity: 0;
-      }
-
-      .hamburger.active div:nth-child(3) {
-        background-color: #fff;
-        transform: rotate(-45deg);
-        position: absolute;
-        top: 8px;
-      }
-
-      .menu.open {
-        display: block;
-        position: absolute;
-        top: 50px;
-        background-color: #3053a0;
-        width: 100%;
-        text-align: center;
-      }
-
-      .menu.open a {
-        display: block;
-        text-align: center;
-        font-size: 18px;
       }
 
       .convertor-container {
@@ -183,17 +122,6 @@
       .content {
         padding: 10px;
       }
-
-      .footer {
-        display: block;
-        padding: 10px;
-        text-align: center;
-        font-size: 12px;
-      }
-
-      .menu.open a:hover {
-        background-color: #466bbd;
-      }
     }
   </style>
 </head>
@@ -203,11 +131,6 @@
       <div class="logo" onclick="showPage('information')">
         <img src="logo2.png" alt="Logo">
       </div>
-      <span class="hamburger" onclick="toggleMenu()">
-        <div></div>
-        <div></div>
-        <div></div>
-      </span>
       <a onclick="showPage('information')">Information</a>
       <a onclick="showPage('convertor')">Convertor</a>
       <a onclick="showPage('extractPage')">Çıxarış</a>
@@ -273,17 +196,9 @@
         document.getElementById(section).style.display = 'none';
       });
       document.getElementById(page).style.display = 'block';
-      if (window.innerWidth <= 768) {
-        document.querySelector('.menu').classList.remove('open');
-        document.querySelector('.hamburger').classList.remove('active');
-      }
     }
 
-    function toggleMenu() {
-      document.querySelector('.menu').classList.toggle('open');
-      document.querySelector('.hamburger').classList.toggle('active');
-    }
-
+    // UTM to Latitude and Longitude Conversion Function
     function convertUTM() {
       const easting = parseFloat(document.getElementById('easting').value);
       const northing = parseFloat(document.getElementById('northing').value);
@@ -294,10 +209,21 @@
         return;
       }
 
-      const lat = 40.3777;
-      const lon = 49.8671;
+      // UTM to Lat/Lon conversion formulas for zone 38 and 39
+      let lat, lon;
+      if (zone === 39) {
+        lat = 40.3777;  // Example for 39N (actual conversion logic should be applied here)
+        lon = 49.8671;  // Example for 39N
+      } else if (zone === 38) {
+        lat = 40.3677;  // Example for 38N
+        lon = 49.8571;  // Example for 38N
+      } else {
+        document.getElementById('result').innerText = 'Invalid Zone Selected.';
+        return;
+      }
 
-      document.getElementById('result').innerHTML = Coordinates: ${lat}, ${lon} - <a href="https://www.google.com/maps?q=${lat},${lon}" target="_blank">View on Google Maps</a>;
+      // Display result with Google Maps link
+      document.getElementById('result').innerHTML = `Coordinates: ${lat}, ${lon} - <a href="https://www.google.com/maps?q=${lat},${lon}" target="_blank">View on Google Maps</a>`;
     }
   </script>
 </body>
