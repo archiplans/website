@@ -19,7 +19,7 @@ body, html {
   color: #fff;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center;  /* Ensures logo and menu are aligned vertically */
   padding: 15px 20px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
@@ -37,33 +37,15 @@ body, html {
   border-radius: 50%;
 }
 
-.hamburger {
-  display: none;
-  cursor: pointer;
-  font-size: 24px;
-}
-
 .menu-links {
   display: flex;
-  gap: 15px;
-}
-
-.menu-links.active {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 70px;
-  left: 0;
-  background-color: #3053a0;
-  width: 100%;
-  padding: 10px;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .menu-links a {
   color: #fff;
   text-decoration: none;
-  padding: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s ease;
 }
@@ -72,11 +54,46 @@ body, html {
   background-color: #466bbd;
 }
 
+.hamburger {
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
 .content {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden; /* Sağa-sola scroll aradan qaldırıldı */
   padding: 20px;
   background-color: #fff;
+}
+
+.iframe-container {
+  width: 100%;
+  height: 500px;
+  border: none;
+}
+
+.convertor-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.convertor-container label, 
+.convertor-container select, 
+.convertor-container input, 
+.convertor-container button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+}
+
+.result {
+  margin-top: 10px;
+  font-weight: bold;
 }
 
 .footer {
@@ -88,32 +105,39 @@ body, html {
   flex-shrink: 0;
 }
 
+.info {
+  text-align: center;
+}
+
+/* Mobil versiya üçün tənzimləmələr */
 @media (max-width: 768px) {
-  .hamburger {
-    display: block;
-  }
-
-  .menu-links {
-    display: none;
-  }
-
-  .menu-links.active {
-    display: block;
+  .menu {
+    justify-content: center;  /* Centers the logo and menu */
   }
 
   .logo {
     position: absolute;
-    left: 20px;
-    top: 15px;
+    left: 20px;  /* Keeps the logo to the left */
+    top: 50%;  /* Adjusts the logo's vertical position */
+    transform: translateY(-50%);  /* Vertically centers the logo */
+  }
+
+  .menu-links {
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+  }
+
+  .menu-links.active {
+    display: flex;
   }
 
   .hamburger {
-    position: absolute;
-    right: 20px;
-    top: 15px;
+    display: block;
   }
 
   .footer {
-    display: block;
+    display: block; /* Ensure footer is visible on mobile */
   }
 }
