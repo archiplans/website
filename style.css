@@ -19,7 +19,7 @@ body, html {
   color: #fff;
   display: flex;
   justify-content: space-between;
-  align-items: center;  /* Ensures logo and menu are aligned vertically */
+  align-items: center;
   padding: 15px 20px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
@@ -37,23 +37,38 @@ body, html {
   border-radius: 50%;
 }
 
-.menu a {
+.hamburger {
+  font-size: 24px;
+  cursor: pointer;
+  display: none;
+}
+
+.menu-links {
+  display: flex;
+  gap: 15px;
+}
+
+.menu-links.show {
+  display: block;
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background-color: #3053a0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.menu-links a {
   color: #fff;
   text-decoration: none;
   padding: 10px 20px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.menu a:hover {
-  background-color: #466bbd;
 }
 
 .content {
   flex: 1;
   overflow-y: auto;
-  overflow-x: hidden; /* Sağa-sola scroll aradan qaldırıldı */
   padding: 20px;
   background-color: #fff;
 }
@@ -72,20 +87,6 @@ body, html {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.convertor-container label, 
-.convertor-container select, 
-.convertor-container input, 
-.convertor-container button {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 8px;
-}
-
-.result {
-  margin-top: 10px;
-  font-weight: bold;
-}
-
 .footer {
   background-color: #3053a0;
   color: #fff;
@@ -95,34 +96,27 @@ body, html {
   flex-shrink: 0;
 }
 
-.info {
-  text-align: center;
-}
-
-/* Mobil versiya üçün tənzimləmələr */
 @media (max-width: 768px) {
-  .menu {
-    justify-content: center;  /* Centers the logo and menu */
+  .hamburger {
+    display: block;
+  }
+
+  .menu-links {
+    display: none;
+  }
+
+  .footer {
+    display: block;
   }
 
   .logo {
     position: absolute;
-    left: 20px;  /* Keeps the logo to the left */
-    top: 50%;  /* Adjusts the logo's vertical position */
-    transform: translateY(-50%);  /* Vertically centers the logo */
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
-  .menu a {
-    display: none;  /* Hides the menu items on mobile */
-  }
-
-  .content {
-    padding: 10px;
-  }
-}
-
-@media (max-width: 768px) {
-  .footer {
-    display: block; /* Ensure footer is visible on mobile */
+  .hamburger {
+    margin-right: 20px;
   }
 }
