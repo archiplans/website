@@ -60,7 +60,7 @@
     .content {
       flex: 1;
       overflow-y: auto;
-      overflow-x: hidden; /* Sağa-sola scroll aradan qaldırıldı */
+      overflow-x: hidden;
       padding: 20px;
       background-color: #fff;
     }
@@ -79,20 +79,6 @@
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     }
 
-    .convertor-container label, 
-    .convertor-container select, 
-    .convertor-container input, 
-    .convertor-container button {
-      width: 100%;
-      margin-bottom: 10px;
-      padding: 8px;
-    }
-
-    .result {
-      margin-top: 10px;
-      font-weight: bold;
-    }
-
     .footer {
       background-color: #3053a0;
       color: #fff;
@@ -106,31 +92,71 @@
       text-align: center;
     }
 
-    /* Mobil versiya üçün tənzimləmələr */
+    /* Mobil versiya */
     @media (max-width: 768px) {
+      .menu {
+        justify-content: space-between;
+        padding: 10px;
+      }
+
+      .menu .logo {
+        flex-grow: 1;
+      }
+
       .menu a {
-        padding: 10px;
-        font-size: 14px;
+        display: none;
       }
 
-      .convertor-container {
+      .menu .hamburger {
+        display: block;
+        cursor: pointer;
+        font-size: 24px;
+      }
+
+      .mobile-menu {
+        display: none;
+        position: absolute;
+        top: 65px;
+        left: 0;
         width: 100%;
-        padding: 15px;
-        box-sizing: border-box;
+        background-color: #3053a0;
+        z-index: 1000;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
       }
 
-      .content {
-        padding: 10px;
+      .mobile-menu a {
+        display: block;
+        padding: 15px;
+        text-align: center;
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        border-bottom: 1px solid #466bbd;
+      }
+
+      .mobile-menu a:hover {
+        background-color: #466bbd;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- Menu -->
     <div class="menu">
       <div class="logo" onclick="showPage('information')">
         <img src="logo2.png" alt="Logo">
       </div>
+      <a onclick="showPage('information')">Information</a>
+      <a onclick="showPage('convertor')">Convertor</a>
+      <a onclick="showPage('extractPage')">Çıxarış</a>
+      <a onclick="showPage('technicalPassport')">Texniki Pasport</a>
+      <a onclick="showPage('address')">Address</a>
+      <div class="hamburger" onclick="toggleMobileMenu()">☰</div>
+    </div>
+
+    <!-- Mobil Menyu -->
+    <div class="mobile-menu" id="mobileMenu">
       <a onclick="showPage('information')">Information</a>
       <a onclick="showPage('convertor')">Convertor</a>
       <a onclick="showPage('extractPage')">Çıxarış</a>
@@ -147,40 +173,6 @@
         <p>Əlaqə nömrələri: +994 (12) 408-48-08, +994 (77) 408-48-08</p>
         <p>Email: archiplans@mail.ru</p>
       </div>
-
-      <!-- Convertor Section -->
-      <div id="convertor" class="convertor-container" style="display: none;">
-        <h2>UTM to Coordinates Convertor</h2>
-        <label for="easting">UTM Easting (meters):</label>
-        <input type="number" id="easting" placeholder="e.g., 500000">
-
-        <label for="northing">UTM Northing (meters):</label>
-        <input type="number" id="northing" placeholder="e.g., 4649776">
-
-        <label for="zone">UTM Zone:</label>
-        <select id="zone">
-          <option value="39">39N</option>
-          <option value="38">38N</option>
-        </select>
-
-        <button onclick="convertUTM()">Convert</button>
-        <div class="result" id="result"></div>
-      </div>
-
-      <!-- Extract Page Section -->
-      <div id="extractPage" class="iframe-container" style="display: none;">
-        <iframe src="https://e-emlak.gov.az/eemdk/az/CheckElectronExtract" class="iframe-container"></iframe>
-      </div>
-
-      <!-- Technical Passport Section -->
-      <div id="technicalPassport" class="iframe-container" style="display: none;">
-        <iframe src="https://e-emlak.gov.az/eemdk/az/CheckEPassport" class="iframe-container"></iframe>
-      </div>
-
-      <!-- Address Section -->
-      <div id="address" class="iframe-container" style="display: none;">
-        <iframe src="https://unvanportali.az/" class="iframe-container"></iframe>
-      </div>
     </div>
 
     <div class="footer">
@@ -196,22 +188,18 @@
         document.getElementById(section).style.display = 'none';
       });
       document.getElementById(page).style.display = 'block';
+      
+      // Mobil menyunu bağla
+      document.getElementById('mobileMenu').style.display = 'none';
     }
 
-    function convertUTM() {
-      const easting = parseFloat(document.getElementById('easting').value);
-      const northing = parseFloat(document.getElementById('northing').value);
-      const zone = parseInt(document.getElementById('zone').value);
-
-      if (isNaN(easting) || isNaN(northing)) {
-        document.getElementById('result').innerText = 'Please enter valid UTM coordinates.';
-        return;
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (mobileMenu.style.display === 'block') {
+        mobileMenu.style.display = 'none';
+      } else {
+        mobileMenu.style.display = 'block';
       }
-
-      const lat = 40.3777;
-      const lon = 49.8671;
-
-      document.getElementById('result').innerHTML = `Coordinates: ${lat}, ${lon} - <a href="https://www.google.com/maps?q=${lat},${lon}" target="_blank">View on Google Maps</a>`;
     }
   </script>
 </body>
