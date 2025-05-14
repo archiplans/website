@@ -18,17 +18,20 @@ body, html {
   background-color: #3053a0;
   color: #fff;
   display: flex;
-  justify-content: space-between;
-  align-items: center;  /* Ensures logo and menu are aligned vertically */
+  justify-content: center;  /* Menyu mərkəzə düzüləcək */
+  align-items: center;
   padding: 15px 20px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
+  position: relative;
 }
 
 .logo {
   display: flex;
   align-items: center;
   cursor: pointer;
+  position: absolute;  /* Logo mərkəzləşəcək */
+  left: 20px;  /* Logo sola uyğunlaşdırılır */
 }
 
 .logo img {
@@ -39,6 +42,7 @@ body, html {
 
 .menu-links {
   display: flex;
+  justify-content: center;  /* Menü linkləri mərkəzləşəcək */
 }
 
 .menu-links a {
@@ -112,14 +116,14 @@ body, html {
 /* Mobil versiya üçün tənzimləmələr */
 @media (max-width: 768px) {
   .menu {
-    justify-content: center;  /* Centers the logo and menu */
+    justify-content: center;  /* Menü mərkəzləşəcək */
   }
 
   .logo {
     position: absolute;
-    left: 20px;  /* Keeps the logo to the left */
-    top: 50%;  /* Adjusts the logo's vertical position */
-    transform: translateY(-50%);  /* Vertically centers the logo */
+    left: 20px;  /* Logo sola uyğunlaşdırılır */
+    top: 50%;  /* Logo şaquli mərkəzləşəcək */
+    transform: translateY(-50%);  /* Mərkəzləşdirmə */
   }
 
   .menu-links {
@@ -138,6 +142,6 @@ body, html {
   }
 
   .footer {
-    display: block; /* Ensure footer is visible on mobile */
+    display: block; /* Footer görünəcək */
   }
 }
