@@ -1,108 +1,40 @@
-/* Ümumi tərtibat */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
-/* Menyu */
-.menu {
-  background-color: #3053a0;
-  color: #fff;
-  display: flex;
-  justify-content: center;  /* Menyunu mərkəzə düzəldirik */
-  align-items: center;
-  padding: 15px 20px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0;
-  position: relative;
-}
-
-.menu .logo {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  position: absolute;
-  left: 20px;  /* Logo sola uyğunlaşdırılır */
-  top: 50%;  /* Şaquli mərkəzləşdirmə */
-  transform: translateY(-50%);  /* Mərkəzləşdirmə */
-}
-
-.menu .hamburger {
-  display: none;
-  font-size: 30px;
-  cursor: pointer;
-}
-
-.menu-links {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.menu-links a {
-  color: #fff;
-  text-decoration: none;
-  margin: 0 15px;
-  font-size: 16px;
-}
-
-.menu-links a:hover {
-  color: #f0a500;
-}
-
-/* Mobil Versiya */
+/* Mobil versiyada logo mərkəzə, hamburger menyu sağa */
 @media (max-width: 768px) {
-  .menu-links {
-    display: none;  /* Əvvəlcə menyu gizlidir */
-    flex-direction: column;
-    text-align: center;
-    width: 100%;
-  }
-
-  .menu-links.active {
-    display: flex;  /* Menyu açıldıqda göstərilsin */
-  }
-
-  .menu .hamburger {
-    display: block;  /* Hamburger ikonu mobil versiyada göstərilsin */
+  .menu {
+    display: flex;
+    justify-content: space-between; /* Logo solda, hamburger sağda */
+    align-items: center;
   }
 
   .logo {
+    flex-grow: 1;
+    text-align: center; /* Mərkəzləşdir */
+  }
+
+  .hamburger {
+    order: 2; /* Hamburger menyunu sağa düzəlt */
+  }
+
+  .menu-links {
+    display: none;
+  }
+
+  .menu-links.active {
+    display: block;
     position: absolute;
-    left: 20px;  /* Logo sola uyğunlaşdırılır */
-    top: 50%;  /* Şaquli mərkəzləşdirmə */
-    transform: translateY(-50%);  /* Mərkəzləşdirmə */
+    top: 60px;
+    right: 0;
+    background-color: #333;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    z-index: 999;
   }
 
-  .menu .logo img {
-    width: 120px;  /* Logo ölçüsünü uyğunlaşdırır */
+  .menu-links a {
+    display: block;
+    color: white;
+    padding: 10px 0;
+    text-decoration: none;
   }
-}
-
-/* Kontent sahəsi */
-.content {
-  flex-grow: 1;
-  overflow-y: auto;
-}
-
-.info, .convertor-container, .iframe-container {
-  padding: 20px;
-}
-
-/* Footer */
-.footer {
-  background-color: #f1f1f1;
-  color: #333;
-  text-align: center;
-  padding: 10px 0;
-  position: relative;
-  bottom: 0;
 }
