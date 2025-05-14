@@ -1,25 +1,25 @@
-body {
-  font-family: Arial, sans-serif;
+body, html {
   margin: 0;
   padding: 0;
+  height: 100%;
+  overflow: hidden; /* Ümumi scroll-u aradan qaldırırıq */
+  font-family: Arial, sans-serif;
   background-color: #f0f0f0;
+}
+
+.container {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Full screen height */
+  height: 100vh;
 }
 
 .menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
   background-color: #3053a0;
   color: #fff;
   display: flex;
   justify-content: space-around;
   padding: 15px 0;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Ensure the menu is always on top */
 }
 
 .footer {
@@ -28,26 +28,13 @@ body {
   padding: 10px;
   text-align: center;
   font-size: 12px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000; /* Ensure footer stays above other content */
 }
 
 .content {
   flex: 1;
-  padding: 100px 20px 40px; /* Ensure content doesn't go under the header */
+  overflow-y: auto; /* Yalnız content bölməsi scroll olunacaq */
+  padding: 20px;
   background-color: #fff;
-  overflow-y: auto; /* Enable scrolling for the content */
-  margin-top: 80px; /* To ensure content is visible under the fixed header */
-  margin-bottom: 40px; /* Space for the footer */
-}
-
-.iframe-container {
-  width: 100%;
-  height: 500px;
-  border: none;
 }
 
 .convertor-container {
