@@ -4,31 +4,37 @@ function convertCoordinates(latitude, longitude, zone) {
   let convertedLon = 0;
 
   if (zone === '39N') {
-    // 39N zonası üçün konvertasiya formulu
-    convertedLat = latitude + 0.1;  // Bu sadəcə nümunədir, əsl formula ilə əvəz edin
-    convertedLon = longitude + 0.1; // Bu sadəcə nümunədir, əsl formula ilə əvəz edin
+    convertedLat = latitude + 0.1;
+    convertedLon = longitude + 0.1;
   } else if (zone === '38N') {
-    // 38N zonası üçün konvertasiya formulu
-    convertedLat = latitude + 0.2;  // Bu sadəcə nümunədir, əsl formula ilə əvəz edin
-    convertedLon = longitude + 0.2; // Bu sadəcə nümunədir, əsl formula ilə əvəz edin
+    convertedLat = latitude + 0.2;
+    convertedLon = longitude + 0.2;
   }
 
   return { lat: convertedLat, lon: convertedLon };
 }
 
 // Formu göndərərkən konvertasiyanı həyata keçir
-document.getElementById('converter-form').addEventListener('submit', function (e) {
+document.getElementById('convertor-form').addEventListener('submit', function (e) {
   e.preventDefault();
 
-  // Daxil edilən məlumatları oxuyuruq
   const zone = document.getElementById('zone').value;
-  const latitude = parseFloat(document.getElementById('latitude').value);
-  const longitude = parseFloat(document.getElementById('longitude').value);
+  const easting = parseFloat(document.getElementById('easting').value);
+  const northing = parseFloat(document.getElementById('northing').value);
 
-  // Koordinatları konvertasiya edirik
-  const result = convertCoordinates(latitude, longitude, zone);
+  const result = convertCoordinates(easting, northing, zone);
 
-  // Nəticəni ekrana göstəririk
-  const resultElement = document.getElementById('converted-coordinates');
+  const resultElement = document.getElementById('result');
   resultElement.textContent = `Converted Latitude: ${result.lat}, Converted Longitude: ${result.lon}`;
 });
+
+// Hamburger menyunun açılması/bağlanması
+function toggleMenu() {
+  const menu = document.getElementById("menu-links");
+  menu.classList.toggle("show");
+}
+
+function hideMenu() {
+  const menu = document.getElementById("menu-links");
+  menu.classList.remove("show");
+}
