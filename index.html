@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Archiplans - Convertor and Address Search</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Archiplans - Convertor and Address Search</title>
   <style>
     body, html {
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
       font-family: Arial, sans-serif;
       background-color: #f0f0f0;
     }
@@ -25,16 +24,15 @@
       background-color: #3053a0;
       color: #fff;
       display: flex;
-      justify-content: space-around;
-      padding: 15px 0;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
       box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-      flex-shrink: 0;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      padding-left: 20px;
       cursor: pointer;
     }
 
@@ -60,23 +58,8 @@
     .content {
       flex: 1;
       overflow-y: auto;
-      overflow-x: hidden;
       padding: 20px;
       background-color: #fff;
-    }
-
-    .iframe-container {
-      width: 100%;
-      height: 500px;
-      border: none;
-    }
-
-    .convertor-container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #f9f9f9;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     }
 
     .footer {
@@ -88,29 +71,16 @@
       flex-shrink: 0;
     }
 
-    .info {
-      text-align: center;
-    }
-
     /* Mobil versiya */
     @media (max-width: 768px) {
-      .menu {
-        justify-content: space-between;
-        padding: 10px;
-      }
-
-      .menu .logo {
-        flex-grow: 1;
-      }
-
       .menu a {
         display: none;
       }
 
       .menu .hamburger {
         display: block;
-        cursor: pointer;
         font-size: 24px;
+        cursor: pointer;
       }
 
       .mobile-menu {
@@ -147,11 +117,13 @@
       <div class="logo" onclick="showPage('information')">
         <img src="logo2.png" alt="Logo">
       </div>
-      <a onclick="showPage('information')">Information</a>
-      <a onclick="showPage('convertor')">Convertor</a>
-      <a onclick="showPage('extractPage')">Çıxarış</a>
-      <a onclick="showPage('technicalPassport')">Texniki Pasport</a>
-      <a onclick="showPage('address')">Address</a>
+      <div class="desktop-menu">
+        <a onclick="showPage('information')">Information</a>
+        <a onclick="showPage('convertor')">Convertor</a>
+        <a onclick="showPage('extractPage')">Çıxarış</a>
+        <a onclick="showPage('technicalPassport')">Texniki Pasport</a>
+        <a onclick="showPage('address')">Address</a>
+      </div>
       <div class="hamburger" onclick="toggleMobileMenu()">☰</div>
     </div>
 
@@ -173,6 +145,8 @@
         <p>Əlaqə nömrələri: +994 (12) 408-48-08, +994 (77) 408-48-08</p>
         <p>Email: archiplans@mail.ru</p>
       </div>
+
+      <!-- Add other pages here, like 'convertor', 'extractPage', etc -->
     </div>
 
     <div class="footer">
@@ -181,26 +155,7 @@
     </div>
   </div>
 
-  <script>
-    function showPage(page) {
-      const sections = ['information', 'convertor', 'extractPage', 'technicalPassport', 'address'];
-      sections.forEach(section => {
-        document.getElementById(section).style.display = 'none';
-      });
-      document.getElementById(page).style.display = 'block';
-      
-      // Mobil menyunu bağla
-      document.getElementById('mobileMenu').style.display = 'none';
-    }
-
-    function toggleMobileMenu() {
-      const mobileMenu = document.getElementById('mobileMenu');
-      if (mobileMenu.style.display === 'block') {
-        mobileMenu.style.display = 'none';
-      } else {
-        mobileMenu.style.display = 'block';
-      }
-    }
-  </script>
+  <!-- JavaScript faylını daxil etmək -->
+  <script src="script.js"></script>
 </body>
 </html>
