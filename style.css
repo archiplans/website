@@ -1,40 +1,85 @@
-/* Mobil versiyada logo mərkəzə, hamburger menyu sağa */
-@media (max-width: 768px) {
-  .menu {
-    display: flex;
-    justify-content: space-between; /* Logo solda, hamburger sağda */
-    align-items: center;
-  }
+/* Ümumi stil */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Menyu Üslubu */
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+}
+
+.logo img {
+  height: 50px;
+  cursor: pointer;
+}
+
+.menu-links {
+  display: flex;
+  gap: 15px;
+}
+
+.menu-links a {
+  color: white;
+  text-decoration: none;
+  padding: 5px;
+}
+
+.hamburger {
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+/* Mobil versiya üçün düzəlişlər */
+@media (max-width: 768px) {
+  /* Logo mərkəzə yerləşdirilsin */
   .logo {
     flex-grow: 1;
-    text-align: center; /* Mərkəzləşdir */
+    text-align: center;
   }
 
+  /* Hamburger menyu sağda */
   .hamburger {
-    order: 2; /* Hamburger menyunu sağa düzəlt */
+    display: block;
   }
 
+  /* Menü gizlədilib, yalnız hamburgerdən sonra açılsın */
   .menu-links {
     display: none;
-  }
-
-  .menu-links.active {
-    display: block;
     position: absolute;
     top: 60px;
     right: 0;
     background-color: #333;
     width: 100%;
     text-align: center;
-    padding: 20px;
-    z-index: 999;
+  }
+
+  .menu-links.active {
+    display: block;
   }
 
   .menu-links a {
     display: block;
     color: white;
-    padding: 10px 0;
+    padding: 10px;
     text-decoration: none;
+  }
+
+  .menu-links a:hover {
+    background-color: #555;
   }
 }
