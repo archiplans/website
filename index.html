@@ -1,40 +1,39 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Website</title>
-<base href="/website/">  <!-- burada repo adın yazılıb -->
-<link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Baş səhifə</title>
+    <link rel="stylesheet" href="/website/style.css" />
+    <script defer src="/website/script.js"></script>
 </head>
 <body>
-<header>
-  <button data-page="info.html">Məlumat</button>
-  <button data-page="contact.html">Əlaqə</button>
-</header>
-
-<main id="main-content">
-  <h1>Əsas səhifə</h1>
-  <p>Bu, saytın əsas məzmunudur.</p>
-</main>
-
-<script>
-document.querySelectorAll('button[data-page]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const page = btn.getAttribute('data-page');
-    fetch(page)
-      .then(res => {
-        if (!res.ok) throw new Error("Səhifə yüklənə bilmədi");
-        return res.text();
-      })
-      .then(html => {
-        document.getElementById('main-content').innerHTML = html;
-      })
-      .catch(err => {
-        document.getElementById('main-content').innerHTML = `<p>Xəta baş verdi: ${err.message}</p>`;
-      });
-  });
-});
-</script>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <img src="/website/logo.png" alt="Logo" />
+      </div>
+      <nav>
+        <ul class="menu">
+          <li><button data-page="home.html">Ana səhifə</button></li>
+          <li><button data-page="info.html">Məlumat</button></li>
+          <li><button data-page="contact.html">Əlaqə</button></li>
+        </ul>
+      </nav>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </header>
+    <main id="main-content">
+      <h1>Xoş gəlmisiniz!</h1>
+      <p>Bu, əsas səhifənin məzmunudur.</p>
+    </main>
+    <footer>
+      <div class="line1">ARCHİPLANS MMC şirkəti 2016-cı ildən xidmətinizdədir</div>
+      <div class="line2">Azərbaycan Respublikası, Bakı şəhəri, Xətai rayonu, M.Hadi 7</div>
+    </footer>
+  </div>
 </body>
 </html>
