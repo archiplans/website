@@ -173,3 +173,63 @@ footer .line2 {
     font-size: 13px;
     opacity: 0.85;
 }
+/* ===== Mobil üçün Hamburger Menyu Ayarları ===== */
+@media (max-width: 767px) {
+    /* Hamburger düyməsi görünməlidir */
+    .hamburger {
+        display: block !important;
+        position: relative;
+        z-index: 1001; /* hamburger düyməsi hər şeydən üstün olsun */
+        width: 30px;
+        height: 25px;
+        cursor: pointer;
+    }
+
+    .hamburger span {
+        display: block;
+        height: 3px;
+        background-color: #dff5e0; /* hamburger düyməsinin xətlərinin rəngi */
+        margin: 5px 0;
+        border-radius: 2px;
+    }
+
+    /* Menyu mobilda gizlidir (sürüşərək sağa keçir) */
+    .menu {
+        display: block !important;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 70%;
+        height: 100vh;
+        background-color: #00695c; /* menu fon rəngi */
+        padding: 2rem;
+        z-index: 1000; /* hamburgerdan az üstün */
+        overflow-y: auto;
+
+        /* Menü sağa gizlədilir */
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* Menü açıq olduqda görünür */
+    .menu.open {
+        transform: translateX(0);
+    }
+}
+
+/* Desktop üçün hamburger gizlənir */
+@media (min-width: 768px) {
+    .hamburger {
+        display: none !important;
+    }
+
+    .menu {
+        display: flex !important;
+        position: static;
+        transform: none !important;
+        height: auto;
+        background-color: transparent;
+        padding: 0;
+        overflow: visible;
+    }
+}
