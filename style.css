@@ -93,6 +93,9 @@ ul.menu li button:active {
     width: 30px;
     height: 26px;
     user-select: none;
+    color: #333; /* görünən tünd rəng */
+    font-size: 28px;
+    cursor: pointer;
 }
 .hamburger span {
     height: 4px;
