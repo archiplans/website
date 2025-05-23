@@ -1,26 +1,28 @@
 /* Reset */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #e8f0f2; /* açıq mavi-ağ ton */
+    background-color: #e0f2f1; /* Açıq yaşıl/mavi fon */
     display: flex;
     justify-content: center;
     min-height: 100vh;
 }
+
 .container {
     max-width: 1200px;
     width: 100%;
-    background: #ffffff;
-    min-height: 100vh;
+    background-color: #004d40; /* Dərin yaşıl */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-    border-radius: 15px;
-    overflow: hidden;
+    min-height: 100vh;
+    color: #ffffff;
 }
 
 /* Header */
@@ -28,63 +30,64 @@ header {
     display: flex;
     align-items: center;
     padding: 15px 30px;
-    border-bottom: 1px solid #e0e0e0;
-    position: relative;
-    background-color: #00695c;
-    color: white;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    background-color: #00695c; /* Orta yaşıl */
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
 }
+
 .logo {
-    height: 56px;
     width: 56px;
+    height: 56px;
     border-radius: 50%;
     overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    background-color: #ffffff;
     flex-shrink: 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    background: white;
 }
 .logo img {
-    height: 100%;
     width: 100%;
+    height: 100%;
     object-fit: contain;
     border-radius: 50%;
 }
+
 nav {
-    flex-grow: 1;
     margin-left: 25px;
+    flex-grow: 1;
 }
+
 ul.menu {
     list-style: none;
     display: flex;
     gap: 20px;
 }
+
 ul.menu li button {
-    background: #00796b;
+    background-color: #00796b; /* Daha açıq yaşıl */
     border: none;
-    color: white;
-    font-weight: 600;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 10px 24px;
     border-radius: 30px;
+    color: #e0f2f1;
+    font-weight: 600;
+    padding: 10px 24px;
+    cursor: pointer;
     box-shadow: 0 4px 10px rgba(0,121,107,0.3);
-    transition: 
-        background-color 0.3s ease, 
-        box-shadow 0.3s ease, 
-        transform 0.2s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
     user-select: none;
+    font-size: 16px;
 }
+
 ul.menu li button:hover {
     background-color: #004d40;
     box-shadow: 0 6px 20px rgba(0,77,64,0.6);
     transform: translateY(-2px);
 }
+
 ul.menu li button:active {
     transform: translateY(1px);
     box-shadow: 0 3px 7px rgba(0,77,64,0.5);
 }
 
-/* Hamburger for mobile */
+/* Hamburger - mobil üçün */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -94,34 +97,32 @@ ul.menu li button:active {
     height: 26px;
     user-select: none;
 }
+
 .hamburger span {
     height: 4px;
-    background: white;
+    background: #e0f2f1;
     margin: 5px 0;
     border-radius: 2px;
     transition: 0.3s;
 }
 
-/* Mobile menu (hidden by default) */
+/* Mobil menyu gizlidir */
 @media (max-width: 768px) {
     ul.menu {
         display: none;
         flex-direction: column;
         background-color: #004d40;
         position: absolute;
-        top: 100%;
+        top: 60px;
         left: 0;
         right: 0;
-        z-index: 10;
-        padding: 10px 0;
         border-radius: 0 0 15px 15px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        padding: 10px 0;
+        z-index: 10;
     }
     ul.menu.show {
         display: flex;
-    }
-    header {
-        padding: 15px 20px;
     }
     nav {
         margin-left: 0;
@@ -132,31 +133,34 @@ ul.menu li button:active {
     }
 }
 
-/* Content placeholder */
+/* Main content */
 main {
     flex-grow: 1;
     padding: 40px 30px;
-    font-size: 18px;
-    color: #333;
+    font-size: 20px;
+    line-height: 1.6;
+    color: #d0f0eb;
 }
 
 /* Footer */
 footer {
     background-color: #00695c;
-    color: white;
+    color: #b2dfdb;
+    text-align: center;
     padding: 20px 30px;
     font-size: 14px;
-    line-height: 1.5;
-    text-align: center;
-    user-select: none;
+    border-radius: 0 0 15px 15px;
     box-shadow: inset 0 1px 2px rgba(255,255,255,0.2);
+    user-select: none;
 }
+
 footer .line1 {
     margin-bottom: 8px;
     font-weight: 600;
     font-size: 15px;
 }
+
 footer .line2 {
     font-size: 13px;
-    opacity: 0.85;
+    opacity: 0.8;
 }
