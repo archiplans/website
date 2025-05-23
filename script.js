@@ -16,12 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Menyu düymələrinə klikdə səhifə yükləmə funksiyası
+    // Menyu düymələrinə klikdə səhifə yükləmə və ya iframe açma funksiyası
     menuList.addEventListener("click", (e) => {
         if (e.target.tagName === "BUTTON") {
             const page = e.target.getAttribute("data-page");
+            const frameUrl = e.target.getAttribute("data-frame");
 
             if (page) {
+                // Xarici və ya daxili HTML səhifəsini fetch ilə yüklə
                 fetch(page)
                     .then(response => {
                         if (!response.ok) {
@@ -37,6 +39,12 @@ document.addEventListener("DOMContentLoaded", () => {
                         mainContent.innerHTML = `<p>Səhifə yüklənərkən xəta baş verdi.</p>`;
                         console.error(err);
                     });
+            } else if (frameUrl) {
+                // Əgər iframe açılacaqsa
+                mainContent.innerHTML = `
+                    <iframe src="${frameUrl}" frameborder="0" style="width: 100%; height: 80vh; border-radius: 10px;"></iframe>
+                `;
+                menuList.classList.remove("show"); // Mobil menyunu bağla
             }
         }
     });
