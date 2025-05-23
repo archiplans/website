@@ -1,49 +1,38 @@
 document.addEventListener("DOMContentLoaded", () => {
     const hamburger = document.getElementById("hamburger");
-    const menu = document.querySelector("ul.menu");
+    const menu = document.getElementById("menu");
+    const content = document.getElementById("content");
 
+    // Hamburger toggle
     hamburger.addEventListener("click", () => {
         menu.classList.toggle("show");
     });
 
-    // Menyu düymələri
-    const homeBtn = document.getElementById("home-btn");
-    const melumatBtn = document.getElementById("melumat-btn");
-    const elaqeBtn = document.getElementById("elaqe-btn");
-    const mainContent = document.getElementById("main-content");
+    // Menu buttons load content
+    const buttons = menu.querySelectorAll("button[data-page]");
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            const page = button.getAttribute("data-page");
 
-    homeBtn.addEventListener("click", () => {
-        mainContent.innerHTML = `
-            <h1>Xoş gəlmisiniz!</h1>
-            <p>Bu, ARCHİPLANS MMC şirkətinin əsas səhifəsidir.</p>
-        `;
-        menu.classList.remove("show");
-    });
+            // For mobile: hide menu after click
+            if (menu.classList.contains("show")) {
+                menu.classList.remove("show");
+            }
 
-    melumatBtn.addEventListener("click", () => {
-        fetch('info.html')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Səhifə yüklənərkən xəta baş verdi.");
-                }
-                return response.text();
-            })
-            .then(data => {
-                mainContent.innerHTML = data;
-            })
-            .catch(error => {
-                mainContent.innerHTML = `<p style="color:red;">${error.message}</p>`;
-            });
-        menu.classList.remove("show");
-    });
-
-    elaqeBtn.addEventListener("click", () => {
-        mainContent.innerHTML = `
-            <h2>Əlaqə</h2>
-            <p>Email: info@archiplans.az</p>
-            <p>Telefon: +994 50 123 45 67</p>
-            <p>Ünvan: Bakı, Azərbaycan</p>
-        `;
-        menu.classList.remove("show");
+            // Load page content via fetch API
+            fetch(page)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Səhifə yüklənərkən xəta baş verdi: ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    content.innerHTML = html;
+                })
+                .catch(error => {
+                    content.innerHTML = `<p style="color:red;">${error.message}</p>`;
+                });
+        });
     });
 });
