@@ -1,43 +1,34 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const hamburgerBtn = document.getElementById("hamburgerBtn");
-  const menuList = document.getElementById("menuList");
-  const mainContent = document.querySelector("main");
+document.addEventListener('DOMContentLoaded', () => {
+    const menuList = document.getElementById('menuList');
+    const iframe = document.getElementById('contentFrame');
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
 
-  // Hamburger menyunu aç/qap
-  hamburgerBtn.addEventListener("click", () => {
-    menuList.classList.toggle("show");
-  });
+    // Menyu düymələrinə klik zamanı iframe dəyişir
+    menuList.addEventListener('click', (e) => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
 
-  // Accessibility üçün enter və boşluq ilə də aç
-  hamburgerBtn.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      menuList.classList.toggle("show");
-    }
-  });
+        if (btn.dataset.page) {
+            iframe.src = btn.dataset.page;
+        } else if (btn.dataset.frame) {
+            iframe.src = btn.dataset.frame;
+        }
 
-  // Menyuya kliklə səhifə yüklə və ya iframe göstər
-  menuList.addEventListener("click", (e) => {
-    if (e.target.tagName === "BUTTON") {
-      const page = e.target.getAttribute("data-page");
-      const frameUrl = e.target.getAttribute("data-frame");
+        // Mobil menyuda klik edildikdən sonra menyunu bağla
+        if (window.innerWidth <= 768) {
+            menuList.classList.remove('open');
+        }
+    });
 
-      if (page) {
-        fetch(page)
-          .then(res => res.text())
-          .then(html => {
-            mainContent.innerHTML = html;
-            menuList.classList.remove("show");
-          })
-          .catch(() => {
-            mainContent.innerHTML = "<p>Xəta baş verdi</p>";
-          });
-      } else if (frameUrl) {
-        mainContent.innerHTML = `
-          <iframe src="${frameUrl}" frameborder="0" style="width: 100%; height: 80vh;"></iframe>
-        `;
-        menuList.classList.remove("show");
-      }
-    }
-  });
+    // Hamburger menyu düyməsi
+    hamburgerBtn.addEventListener('click', () => {
+        menuList.classList.toggle('open');
+    });
+
+    // Əlavə: Ekran ölçüsü dəyişdikdə menyunu gizlət
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            menuList.classList.remove('open');
+        }
+    });
 });
