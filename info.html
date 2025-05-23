@@ -15,41 +15,48 @@
             height: 100%;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #e8f0f2;
-            color: #fff;
-        }
-        footer {
+            color: #2c3e50;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Tam ekran hündürlüyü */
-            background-color: #00695c;
-            padding: 20px 30px;
             text-align: center;
-            user-select: none;
-            flex-direction: column;
-            border-radius: 0 0 15px 15px;
+            padding: 40px 20px;
         }
-        footer p {
-            margin: 8px 0;
-            line-height: 1.4;
+
+        footer {
             max-width: 600px;
+            background-color: #00695c;
+            color: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            user-select: none;
         }
-        footer a {
+
+        .welcome {
+            font-weight: bold;
+            font-size: 32px;
+            margin-bottom: 25px;
+        }
+
+        p {
+            margin-bottom: 16px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        a {
             color: #a5d6a7;
             text-decoration: none;
         }
-        footer a:hover {
+        a:hover {
             text-decoration: underline;
         }
-        footer hr {
-            margin: 15px auto;
-            border: 0.5px solid #a5d6a7;
-            width: 60%;
-        }
-        .welcome {
-            font-weight: bold;
-            font-size: 28px;
-            margin-bottom: 20px;
+
+        hr {
+            border: none;
+            border-top: 1px solid #a5d6a7;
+            margin: 30px 0;
         }
     </style>
 </head>
@@ -57,12 +64,10 @@
     <footer>
         <p class="welcome">Welcome to Archiplans</p>
         <p>ARCHİPLANS MMC şirkəti 2016-cı ildən xidmətinizdədir</p>
-        <p>Azərbaycan Respublikası, Bakı şəhəri, Xətai rayonu, M.Hadi 7</p>
-        <p>Əlaqə nömrələri: +994 (12) 408-48-08, +994 (77) 408-48-08</p>
-        <p>Email: <a href="mailto:archiplans@mail.ru">archiplans@mail.ru</a></p>
         <hr />
         <p>© ARCHİPLANS™ 2016</p>
-        <p>Bakı şəhəri, Xətai rayonu, M.Hadi 7; +994 (12) 408-48-08; +994 (77) 408-48-08 | 
+        <p>
+            Bakı şəhəri, Xətai rayonu, M.Hadi 7; +994 (12) 408-48-08; +994 (77) 408-48-08 | 
             <a href="http://www.archiplans.net" target="_blank" rel="noopener">www.archiplans.net</a> | 
             <a href="mailto:archiplans@mail.ru">archiplans@mail.ru</a>
         </p>
