@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
             iframe.src = btn.dataset.frame;
         }
 
-        // Mobil menyuda klik edildikdən sonra menyunu bağla
+        // Mobil menyuda klikdən sonra menyunu bağla
         if (window.innerWidth <= 768) {
             menuList.classList.remove('open');
         }
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         menuList.classList.toggle('open');
     });
 
-    // Əlavə: Ekran ölçüsü dəyişdikdə menyunu gizlət
+    // Ekran ölçüsü dəyişdikdə menyunu gizlət
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) {
             menuList.classList.remove('open');
