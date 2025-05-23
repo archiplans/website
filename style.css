@@ -1,72 +1,138 @@
+/* Ümumi sıfırlama */
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
 }
 
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: green;
-  color: white;
-  padding: 1rem;
-  position: relative;
-  z-index: 1000;
-}
-
-#hamburgerBtn {
-  font-size: 24px;
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  display: none;
-}
-
-/* Menyu siyahısı */
-#menuList {
-  display: none;
-  flex-direction: column;
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 250px;
-  height: 100vh;
-  background-color: white;
-  box-shadow: -2px 0 5px rgba(0,0,0,0.3);
-  padding: 2rem 1rem;
-  z-index: 999;
-}
-
-#menuList.show {
-  display: flex;
-}
-
-#menuList button {
-  padding: 1rem;
-  font-size: 18px;
-  border: none;
-  background: none;
-  text-align: left;
-  cursor: pointer;
-}
-
-/* Mobil üçün */
-@media (max-width: 768px) {
-  #hamburgerBtn {
-    display: block;
-  }
-
-  nav {
-    display: none;
-  }
-
-  nav.show {
+.container {
     display: flex;
-  }
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header və loqo */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #e0f5e0; /* Açıq yaşıl fon */
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    z-index: 100;
+}
+
+.logo img {
+    height: 40px;
+}
+
+/* Menyu */
+nav {
+    display: flex;
+}
+
+.menu {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+}
+
+.menu li button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #333;
+    padding: 8px 12px;
+    transition: background-color 0.2s;
+}
+
+.menu li button:hover {
+    background-color: #d3f4d3;
+    border-radius: 5px;
+}
+
+/* Hamburger düyməsi */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+/* Mobil görünüş */
+@media (max-width: 768px) {
+    .menu {
+        display: none;
+        flex-direction: column;
+        background-color: #fff;
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        width: 200px;
+        padding: 10px 0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+    }
+
+    .menu.open {
+        display: flex;
+    }
+
+    .menu li {
+        border-bottom: 1px solid #ddd;
+        padding: 10px 20px;
+    }
+
+    .menu li:last-child {
+        border-bottom: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    nav {
+        position: relative;
+    }
+}
+
+/* Main sahəsi */
+main {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+/* Footer */
+footer {
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+footer .line1 {
+    font-weight: bold;
+}
+
+footer .line2 {
+    margin-top: 5px;
 }
