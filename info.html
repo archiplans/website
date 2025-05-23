@@ -3,74 +3,63 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Archiplans Info</title>
+    <title>Archiplans - Məlumat</title>
     <style>
-        /* Sadə reset */
-        * {
+        /* Ümumi reset və baza */
+        *, *::before, *::after {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
         body, html {
-            height: 100%;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #e8f0f2;
+            background: #e8f0f2;
             color: #2c3e50;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px 20px;
+            padding: 20px;
         }
-
-        footer {
-            max-width: 600px;
-            background-color: #00695c;
-            color: white;
-            padding: 40px 30px;
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: linear-gradient(to right, #e0f7fa, #f1f8e9);
             border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            user-select: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            padding: 40px 30px;
         }
-
-        .welcome {
+        h1 {
             font-weight: bold;
-            font-size: 32px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
         }
-
         p {
-            margin-bottom: 16px;
-            font-size: 16px;
+            margin: 10px 0;
+            font-size: 1.1rem;
             line-height: 1.5;
         }
-
-        a {
-            color: #a5d6a7;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-
-        hr {
-            border: none;
-            border-top: 1px solid #a5d6a7;
-            margin: 30px 0;
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            p {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <footer>
-        <p class="welcome">Welcome to Archiplans</p>
+    <div class="container">
+        <h1>Welcome to Archiplans</h1>
         <p>ARCHİPLANS MMC şirkəti 2016-cı ildən xidmətinizdədir</p>
-        <hr />
         <p>© ARCHİPLANS™ 2016</p>
-        <p>
-            Bakı şəhəri, Xətai rayonu, M.Hadi 7; +994 (12) 408-48-08; +994 (77) 408-48-08 | 
-            <a href="http://www.archiplans.net" target="_blank" rel="noopener">www.archiplans.net</a> | 
-            <a href="mailto:archiplans@mail.ru">archiplans@mail.ru</a>
-        </p>
-    </footer>
+        <p>Bakı şəhəri, Xətai rayonu, M.Hadi 7; +994 (12) 408-48-08; +994 (77) 408-48-08 | www.archiplans.net | archiplans@mail.ru</p>
+    </div>
 </body>
 </html>
