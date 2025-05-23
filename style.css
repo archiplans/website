@@ -10,9 +10,10 @@ body {
     display: flex;
     justify-content: center;
     min-height: 100vh;
+    position: relative;
 }
 .container {
-     max-width: 1200px;
+    max-width: 1200px;
     width: 100%;
     background: linear-gradient(to right, #e0f7fa, #f1f8e9);
     border-radius: 15px;
@@ -33,6 +34,7 @@ header {
     background-color: #00695c;
     color: white;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    z-index: 20; /* overlay üzərində qalması üçün */
 }
 .logo {
     height: 56px;
@@ -93,6 +95,7 @@ ul.menu li button:active {
     width: 30px;
     height: 26px;
     user-select: none;
+    z-index: 30; /* overlay-dən üstün */
 }
 .hamburger span {
     height: 4px;
@@ -112,10 +115,12 @@ ul.menu li button:active {
         top: 100%;
         left: 0;
         right: 0;
-        z-index: 10;
+        z-index: 25;
         padding: 10px 0;
         border-radius: 0 0 15px 15px;
         box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        max-height: 80vh;
+        overflow-y: auto;
     }
     ul.menu.show {
         display: flex;
@@ -129,6 +134,19 @@ ul.menu li button:active {
     .hamburger {
         display: flex;
         margin-left: auto;
+    }
+
+    /* Overlay fon */
+    body.menu-open::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 15;
+        pointer-events: auto;
     }
 }
 
