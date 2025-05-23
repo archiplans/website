@@ -9,11 +9,11 @@
 <body>
     <div class="container">
         <header>
-           <div class="logo">
-    <a href="index.html">
-        <img src="logo.png" alt="Logo" />
-    </a>
-</div>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="Logo" />
+                </a>
+            </div>
             <nav>
                 <ul class="menu" id="menuList">
                     <li><button data-page="info.html">Məlumat</button></li>
@@ -31,7 +31,6 @@
         </header>
 
         <main>
-            <!-- Burada iframe olacaq, kliklə seçilən səhifə və ya xarici link burda açılsın -->
             <iframe id="contentFrame" src="info.html" style="width: 100%; height: 700px; border: none;"></iframe>
         </main>
 
@@ -43,28 +42,7 @@
         </footer>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuList = document.getElementById('menuList');
-            const iframe = document.getElementById('contentFrame');
-
-            menuList.addEventListener('click', (e) => {
-                const btn = e.target.closest('button');
-                if (!btn) return;
-
-                if (btn.dataset.page) {
-                    iframe.src = btn.dataset.page;
-                } else if (btn.dataset.frame) {
-                    iframe.src = btn.dataset.frame;
-                }
-            });
-
-            // Hamburger menyu toggle üçün sadə funksionallıq
-            const hamburgerBtn = document.getElementById('hamburgerBtn');
-            hamburgerBtn.addEventListener('click', () => {
-                document.querySelector('.menu').classList.toggle('open');
-            });
-        });
-    </script>
+    <!-- JavaScript faylı səhifənin ən sonunda çağırılır -->
+    <script src="script.js"></script>
 </body>
 </html>
