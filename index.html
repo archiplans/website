@@ -1,50 +1,44 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARCHİPLANS</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sayt Başlığı</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="logo">
-        <img src="logo.png" alt="Logo">
-      </div>
-      <nav>
-        <ul class="menu">
-          <li><button>Ana Səhifə</button></li>
-          <li><button>Layihələr</button></li>
-          <li><button>Xidmətlər</button></li>
-          <li><button>Haqqımızda</button></li>
-          <li><button>Əlaqə</button></li>
-        </ul>
-      </nav>
-      <div class="hamburger" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </header>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="logo.png" alt="Logo" />
+            </div>
+            <nav>
+                <ul class="menu" id="menuList">
+                    <li><button data-page="info.html">Məlumat</button></li>
+                    <li><button data-page="utm-konvertor.html">Konvertor</button></li>
+                    <li><button data-frame="https://e-emlak.gov.az/eemdk/az/CheckElectronExtract">Çıxarış</button></li>
+                    <li><button data-frame="https://e-emlak.gov.az/eemdk/az/CheckEPassport">Texpasport</button></li>
+                    <li><button data-frame="https://unvanportali.az/">Ünvan</button></li>
+                </ul>
+            </nav>
+            <div class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" tabindex="0" role="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </header>
 
-    <main>
-      <p>Burada əsas məzmun olacaq...</p>
-    </main>
+        <main>
+            <h1>Saytın əsas məzmunu</h1>
+            <p>Burada başlanğıc məzmun yerləşir.</p>
+        </main>
 
-    <footer>
-      <div class="line1">© ARCHİPLANS™ 2016</div>
-      <div class="line2">
-        Bakı şəhəri, Xətai rayonu, M.Hadi 7; +994 (12) 408-48-08; +994 (77) 408-48-08 | www.archiplans.net | archiplans@mail.ru
-      </div>
-    </footer>
-  </div>
+        <footer>
+            <div class="line1">© 2025 Sənin Şirkət</div>
+            <div class="line2">Bütün hüquqlar qorunur.</div>
+        </footer>
+    </div>
 
-  <script>
-    function toggleMenu() {
-      const menu = document.querySelector('ul.menu');
-      menu.classList.toggle('show');
-    }
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
