@@ -55,7 +55,7 @@ nav {
 }
 ul.menu {
     list-style: none;
-    display: flex !important; /* Masaüstü üçün görünür */
+    display: flex;
     gap: 20px;
 }
 ul.menu li button {
@@ -68,9 +68,9 @@ ul.menu li button {
     padding: 10px 24px;
     border-radius: 30px;
     box-shadow: 0 4px 10px rgba(0,121,107,0.3);
-    transition:
-        background-color 0.3s ease,
-        box-shadow 0.3s ease,
+    transition: 
+        background-color 0.3s ease, 
+        box-shadow 0.3s ease, 
         transform 0.2s ease;
     user-select: none;
 }
@@ -101,10 +101,6 @@ ul.menu li button:active {
     border-radius: 2px;
     transition: 0.3s;
 }
-.hamburger:focus, .hamburger:active {
-    outline: none;
-    filter: brightness(0.85);
-}
 
 /* Mobile menu (hidden by default) */
 @media (max-width: 768px) {
@@ -116,7 +112,7 @@ ul.menu li button:active {
         top: 100%;
         left: 0;
         right: 0;
-        z-index: 9999;
+        z-index: 10;
         padding: 10px 0;
         border-radius: 0 0 15px 15px;
         box-shadow: 0 10px 20px rgba(0,0,0,0.2);
