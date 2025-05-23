@@ -3,37 +3,38 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ARCHİPLANS MMC</title>
+    <title>Archiplans</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <div class="container">
         <header>
             <div class="logo">
-                <!-- Logo üçün yolun düzgün olmasına diqqət et -->
-                <img src="images/logo.png" alt="ARCHİPLANS Logo" />
+                <img src="logo.png" alt="Archiplans Logo" />
             </div>
             <nav>
-                <ul class="menu">
-                    <li><button id="home-btn">Ana Səhifə</button></li>
-                    <li><button id="melumat-btn">Məlumat</button></li>
-                    <li><button id="elaqe-btn">Əlaqə</button></li>
+                <ul class="menu" id="menu">
+                    <li><button data-page="index.html">Ana səhifə</button></li>
+                    <li><button data-page="info.html">Məlumat</button></li>
+                    <li><button data-page="contact.html">Əlaqə</button></li>
                 </ul>
             </nav>
             <div class="hamburger" id="hamburger">
-                <span></span><span></span><span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </header>
-        <main id="main-content">
+        <main id="content">
             <h1>Xoş gəlmisiniz!</h1>
-            <p>Bu, ARCHİPLANS MMC şirkətinin əsas səhifəsidir.</p>
+            <p>Archiplans MMC şirkəti 2016-cı ildən xidmətinizdədir.</p>
+            <p>Azərbaycan Respublikası, Bakı şəhəri, Xətai rayonu, M.Hadi 7.</p>
         </main>
         <footer>
-            <div class="line1">ARCHİPLANS MMC şirkəti 2016-cı ildən xidmətinizdədir</div>
-            <div class="line2">Azərbaycan Respublikası, Bakı şəhəri, Xətai rayonu, M.Hadi 7</div>
+            <div class="line1">© 2025 Archiplans MMC</div>
+            <div class="line2">Bütün hüquqlar qorunur.</div>
         </footer>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
