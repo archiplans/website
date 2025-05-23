@@ -1,93 +1,44 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Menyu ilə Dinamik Yükləmə</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0; padding: 0;
-  }
-  header {
-    background: #00796b;
-    color: white;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  #hamburgerBtn {
-    font-size: 24px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    color: white;
-  }
-  #menuList {
-    display: none;
-    flex-direction: column;
-    background: #004d40;
-  }
-  #menuList.show {
-    display: flex;
-  }
-  #menuList button {
-    background: none;
-    border: none;
-    color: white;
-    padding: 15px;
-    text-align: left;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  #menuList button:hover {
-    background: #00695c;
-  }
-  main {
-    padding: 20px;
-    min-height: calc(100vh - 50px);
-  }
-  iframe {
-    width: 100%;
-    height: 80vh;
-    border: none;
-  }
-  @media(min-width: 600px) {
-    #menuList {
-      display: flex !important;
-      flex-direction: row;
-      background: transparent;
-    }
-    #menuList button {
-      color: #00796b;
-      padding: 10px 15px;
-    }
-    #hamburgerBtn {
-      display: none;
-    }
-  }
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sayt Başlığı</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="logo.png" alt="Logo" />
+            </div>
+            <nav>
+                <ul class="menu" id="menuList">
+                    <li><button data-page="info.html">Məlumat</button></li>
+                    <li><button>Button 2</button></li>
+                    <li><button>Button 3</button></li>
+                    <li><button>Button 4</button></li>
+                    <li><button>Button 5</button></li>
+                </ul>
+            </nav>
+            <div class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" tabindex="0" role="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </header>
 
-<header>
-  <h1>Sayt Başlığı</h1>
-  <button id="hamburgerBtn" aria-label="Menyu">☰</button>
-  <nav id="menuList" role="navigation">
-    <button data-type="local" data-page="info.html">Məlumat</button>
-    <button data-type="local" data-page="utm-konvertor.html">Konvertor</button>
-    <button data-type="external" data-url="https://e-emlak.gov.az/eemdk/az/CheckElectronExtract">Çıxarış</button>
-    <button data-type="external" data-url="https://e-emlak.gov.az/eemdk/az/CheckEPassport">Texpasport</button>
-    <button data-type="external" data-url="https://unvanportali.az/">Ünvan</button>
-  </nav>
-</header>
+        <main>
+            <h1>Saytın əsas məzmunu</h1>
+            <p>Burada başlanğıc məzmun yerləşir.</p>
+        </main>
 
-<main>
-  <p>Xoş gəlmisiniz! Məlumat yükləmək üçün menyudan seçim edin.</p>
-</main>
+        <footer>
+            <div class="line1">© 2025 Sənin Şirkət</div>
+            <div class="line2">Bütün hüquqlar qorunur.</div>
+        </footer>
+    </div>
 
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
