@@ -3,36 +3,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const iframe = document.getElementById('contentFrame');
     const hamburgerBtn = document.getElementById('hamburgerBtn');
 
-    // Menyu düyməsinə klik edildikdə iframe dəyişir
+    // Menyu düymələrinə klik zamanı iframe dəyişir və menyu bağlanır
     menuList.addEventListener('click', (e) => {
         const btn = e.target.closest('button');
         if (!btn) return;
 
-        // İframe içində səhifəni dəyiş
         if (btn.dataset.page) {
             iframe.src = btn.dataset.page;
         } else if (btn.dataset.frame) {
             iframe.src = btn.dataset.frame;
         }
 
-        // Mobil versiyada menyunu bağla
+        // Mobil menyuda klikdən sonra menyunu dərhal bağla
         if (window.innerWidth <= 768) {
-            menuList.classList.remove('open');        // menyunu gizlə
-            hamburgerBtn.classList.remove('active');  // hamburger düyməsi də bağlanmış görünsün
+            menuList.classList.remove('open');
         }
     });
 
-    // Hamburger düyməsinə klik: menyunu aç / bağla
+    // Hamburger menyu düyməsi
     hamburgerBtn.addEventListener('click', () => {
         menuList.classList.toggle('open');
-        hamburgerBtn.classList.toggle('active'); // vizual effektlər üçün (əgər varsa)
     });
 
-    // Ekran ölçüsü dəyişdikdə menyunu bağla
+    // Ekran ölçüsü dəyişəndə menyunu bağla (desktop-a keçəndə)
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) {
             menuList.classList.remove('open');
-            hamburgerBtn.classList.remove('active');
         }
     });
 });
