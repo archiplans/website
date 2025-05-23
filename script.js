@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const menuList = document.querySelector('.menu'); // Dəyişiklik: .menu seçildi
+    const menu = document.querySelector('.menu'); // class ilə seçilir
     const iframe = document.getElementById('contentFrame');
     const hamburgerBtn = document.getElementById('hamburgerBtn');
 
     // Menyu düymələrinə klik zamanı iframe dəyişir
-    menuList.addEventListener('click', (e) => {
+    menu.addEventListener('click', (e) => {
         const btn = e.target.closest('button');
         if (!btn) return;
 
@@ -14,21 +14,21 @@ document.addEventListener('DOMContentLoaded', () => {
             iframe.src = btn.dataset.frame;
         }
 
-        // Mobil menyuda klik edildikdən sonra menyunu bağla
+        // Yalnız mobil ölçüdə menyunu bağla
         if (window.innerWidth <= 768) {
-            menuList.classList.remove('open');
+            menu.classList.remove('open');
         }
     });
 
-    // Hamburger menyu düyməsi
+    // Hamburger menyunu açıb-bağlayır
     hamburgerBtn.addEventListener('click', () => {
-        menuList.classList.toggle('open');
+        menu.classList.toggle('open');
     });
 
-    // Əlavə: Ekran ölçüsü dəyişdikdə menyunu gizlət
+    // Ekran ölçüsü böyüyəndə menyunu bağla
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) {
-            menuList.classList.remove('open');
+            menu.classList.remove('open');
         }
     });
 });
