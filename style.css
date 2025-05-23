@@ -140,7 +140,9 @@ main {
     font-size: 20px;
     line-height: 1.6;
     color: #d0f0eb;
+    background: linear-gradient(135deg, #e6f2ea 0%, #ffffff 100%);
 }
+
 
 /* Footer */
 footer {
