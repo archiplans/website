@@ -1,42 +1,43 @@
-// Menyu açılma və bağlanma funksiyası
-function toggleMenu() {
-  const menuLinks = document.querySelector('.menu-links');
-  menuLinks.classList.toggle('active');  // Menyu açılacaq və ya bağlanacaq
-}
+document.addEventListener("DOMContentLoaded", () => {
+    const hamburgerBtn = document.getElementById("hamburgerBtn");
+    const menuList = document.getElementById("menuList");
+    const mainContent = document.querySelector("main");
 
-// Səhifələr arası keçid funksiyası
-function showPage(page) {
-  const sections = ['information', 'convertor', 'extractPage', 'technicalPassport', 'address'];
-  
-  // Bütün səhifələri gizləyirik
-  sections.forEach(function(section) {
-    document.getElementById(section).style.display = 'none';
-  });
+    // Hamburger menyu toggle
+    hamburgerBtn.addEventListener("click", () => {
+        menuList.classList.toggle("show");
+    });
 
-  // İstənilən səhifəni göstəririk
-  document.getElementById(page).style.display = 'block';
+    // Klaviatura ilə də hamburger aktivliyi (Accessibility üçün)
+    hamburgerBtn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            menuList.classList.toggle("show");
+        }
+    });
 
-  // Mobil versiyada menyunu bağlamaq
-  document.querySelector('.menu-links').classList.remove('active');
-}
+    // Menyu düymələrinə klikdə səhifə yükləmə funksiyası
+    menuList.addEventListener("click", (e) => {
+        if (e.target.tagName === "BUTTON") {
+            const page = e.target.getAttribute("data-page");
 
-// UTM koordinatlarını çevirmək üçün funksiyanı təyin edirik
-function convertUTM() {
-  const easting = parseFloat(document.getElementById('easting').value);
-  const northing = parseFloat(document.getElementById('northing').value);
-  const zone = document.getElementById('zone').value;
-
-  // Nəticənin göstərilməsi
-  if (isNaN(easting) || isNaN(northing)) {
-    document.getElementById('result').textContent = 'Zəhmət olmasa, düzgün qiymətləri daxil edin.';
-    return;
-  }
-
-  // UTM to Coordinates conversion formula (sadələşdirilmiş nümunə):
-  // UTM koordinatlarını real koordinatlara çevirmək üçün daha ətraflı formul istifadə edilə bilər.
-  const lat = (northing / 1000000);  // Sadə bir çevirmə nümunəsi
-  const lon = (easting / 1000000);
-
-  // Nəticənin göstərilməsi
-  document.getElementById('result').textContent = `Koordinatlar: Latitude: ${lat}, Longitude: ${lon}`;
-}
+            if (page) {
+                fetch(page)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Fayl yüklənmədi");
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        mainContent.innerHTML = html;
+                        menuList.classList.remove("show"); // Mobil menyunu bağla
+                    })
+                    .catch(err => {
+                        mainContent.innerHTML = `<p>Səhifə yüklənərkən xəta baş verdi.</p>`;
+                        console.error(err);
+                    });
+            }
+        }
+    });
+});
