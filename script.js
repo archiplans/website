@@ -1,32 +1,34 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const menuList = document.getElementById('menuList');
+    const menu = document.getElementById('menuList');
     const iframe = document.getElementById('contentFrame');
     const hamburgerBtn = document.getElementById('hamburgerBtn');
 
-    // Menyu düymələrinə klik zamanı iframe dəyişir və menyu dərhal bağlanır
-    menuList.querySelectorAll('button').forEach(button => {
-        button.addEventListener('click', () => {
-            const page = button.dataset.page || button.dataset.frame;
-            if (page) iframe.src = page;
+    // Menyu düyməsinə klik edəndə iframe dəyişir
+    menu.addEventListener('click', (e) => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
 
-            // Mobil versiyada menyunu bağla
-            if (window.innerWidth <= 768) {
-                setTimeout(() => {
-                    menuList.classList.remove('open');
-                }, 100); // transition başa çatsın deyə kiçik gecikmə
-            }
-        });
+        if (btn.dataset.page) {
+            iframe.src = btn.dataset.page;
+        } else if (btn.dataset.frame) {
+            iframe.src = btn.dataset.frame;
+        }
+
+        // Mobil versiyada menyunu bağla
+        if (window.innerWidth <= 768) {
+            menu.classList.remove('open');
+        }
     });
 
-    // Hamburger menyunu açıb-bağlayır
+    // Hamburger menyuya kliklə açıb-bağlama
     hamburgerBtn.addEventListener('click', () => {
-        menuList.classList.toggle('open');
+        menu.classList.toggle('open');
     });
 
-    // Desktop-a keçəndə menyunu gizlət
+    // Ekran ölçüsü dəyişəndə menyunu bağla
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) {
-            menuList.classList.remove('open');
+            menu.classList.remove('open');
         }
     });
 });
