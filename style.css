@@ -100,6 +100,7 @@ ul.menu li button:active {
     margin: 5px 0;
     border-radius: 2px;
     transition: 0.3s;
+    background-color: #dff5e0
 }
 
 /* Mobile menu (hidden by default) */
