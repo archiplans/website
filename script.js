@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.querySelector('.hamburger');
   const menu = document.querySelector('ul.menu');
 
-  // Hamburger menyusunu toggle etmək
   hamburger.addEventListener('click', () => {
     menu.classList.toggle('show');
   });
@@ -20,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(html => {
           mainContent.innerHTML = html;
-          menu.classList.remove('show'); // mobil menyunu bağla klikdən sonra
+          menu.classList.remove('show');
         })
         .catch(error => {
           mainContent.innerHTML = `<p>Xəta baş verdi: ${error.message}</p>`;
