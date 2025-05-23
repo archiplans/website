@@ -1,68 +1,43 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const hamburgerBtn = document.getElementById("hamburgerBtn");
-    const menuList = document.getElementById("menuList");
-    const mainContent = document.querySelector("main");
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const menuList = document.getElementById("menuList");
+  const mainContent = document.querySelector("main");
 
-    // Hamburger menyu toggle
-    hamburgerBtn.addEventListener("click", () => {
-        menuList.classList.toggle("show");
-        document.body.classList.toggle("menu-open");  // Overlay üçün əlavə
-    });
+  // Hamburger menyunu aç/qap
+  hamburgerBtn.addEventListener("click", () => {
+    menuList.classList.toggle("show");
+  });
 
-    // Klaviatura ilə də hamburger aktivliyi (Accessibility üçün)
-    hamburgerBtn.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            menuList.classList.toggle("show");
-            document.body.classList.toggle("menu-open");  // Overlay üçün əlavə
-        }
-    });
+  // Accessibility üçün enter və boşluq ilə də aç
+  hamburgerBtn.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      menuList.classList.toggle("show");
+    }
+  });
 
-    // Menyu düymələrinə klikdə səhifə yükləmə və ya iframe açma funksiyası
-    menuList.addEventListener("click", (e) => {
-        if (e.target.tagName === "BUTTON") {
-            const page = e.target.getAttribute("data-page");
-            const frameUrl = e.target.getAttribute("data-frame");
+  // Menyuya kliklə səhifə yüklə və ya iframe göstər
+  menuList.addEventListener("click", (e) => {
+    if (e.target.tagName === "BUTTON") {
+      const page = e.target.getAttribute("data-page");
+      const frameUrl = e.target.getAttribute("data-frame");
 
-            if (page) {
-                // Xarici və ya daxili HTML səhifəsini fetch ilə yüklə
-                fetch(page)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error("Fayl yüklənmədi");
-                        }
-                        return response.text();
-                    })
-                    .then(html => {
-                        mainContent.innerHTML = html;
-                        menuList.classList.remove("show"); // Mobil menyunu bağla
-                        document.body.classList.remove("menu-open"); // Overlay-i bağla
-                    })
-                    .catch(err => {
-                        mainContent.innerHTML = `<p>Səhifə yüklənərkən xəta baş verdi.</p>`;
-                        console.error(err);
-                        menuList.classList.remove("show");
-                        document.body.classList.remove("menu-open");
-                    });
-            } else if (frameUrl) {
-                // Əgər iframe açılacaqsa
-                mainContent.innerHTML = `
-                    <iframe src="${frameUrl}" frameborder="0" style="width: 100%; height: 80vh; border-radius: 10px;"></iframe>
-                `;
-                menuList.classList.remove("show"); // Mobil menyunu bağla
-                document.body.classList.remove("menu-open"); // Overlay-i bağla
-            }
-        }
-    });
-
-    // Overlay-ə kliklə menyunu bağlamaq (istəyə bağlı)
-    document.body.addEventListener("click", (e) => {
-        if (document.body.classList.contains("menu-open")) {
-            // Overlay sahəsi kliklənibsə, menyunu bağla
-            if (!menuList.contains(e.target) && e.target !== hamburgerBtn) {
-                menuList.classList.remove("show");
-                document.body.classList.remove("menu-open");
-            }
-        }
-    });
+      if (page) {
+        fetch(page)
+          .then(res => res.text())
+          .then(html => {
+            mainContent.innerHTML = html;
+            menuList.classList.remove("show");
+          })
+          .catch(() => {
+            mainContent.innerHTML = "<p>Xəta baş verdi</p>";
+          });
+      } else if (frameUrl) {
+        mainContent.innerHTML = `
+          <iframe src="${frameUrl}" frameborder="0" style="width: 100%; height: 80vh;"></iframe>
+        `;
+        menuList.classList.remove("show");
+      }
+    }
+  });
 });
