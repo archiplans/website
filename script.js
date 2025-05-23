@@ -1,23 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const menu = document.querySelector('.menu'); // class ilə seçilir
+    const menu = document.querySelector('.menu'); // .menu class-ı
     const iframe = document.getElementById('contentFrame');
     const hamburgerBtn = document.getElementById('hamburgerBtn');
 
     // Menyu düymələrinə klik zamanı iframe dəyişir
-    menu.addEventListener('click', (e) => {
-        const btn = e.target.closest('button');
-        if (!btn) return;
+    document.querySelectorAll('.menu button').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            if (btn.dataset.page) {
+                iframe.src = btn.dataset.page;
+            } else if (btn.dataset.frame) {
+                iframe.src = btn.dataset.frame;
+            }
 
-        if (btn.dataset.page) {
-            iframe.src = btn.dataset.page;
-        } else if (btn.dataset.frame) {
-            iframe.src = btn.dataset.frame;
-        }
-
-        // Yalnız mobil ölçüdə menyunu bağla
-        if (window.innerWidth <= 768) {
-            menu.classList.remove('open');
-        }
+            // Əgər mobil ölçüdürsə, menyunu bağla
+            if (window.innerWidth <= 768) {
+                menu.classList.remove('open');
+            }
+        });
     });
 
     // Hamburger menyunu açıb-bağlayır
