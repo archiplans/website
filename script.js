@@ -1,20 +1,48 @@
-// Hamburger menyu toggle
-const hamburger = document.querySelector('.hamburger');
-const menu = document.querySelector('ul.menu');
+document.addEventListener("DOMContentLoaded", () => {
+    const hamburgerBtn = document.getElementById("hamburgerBtn");
+    const menuList = document.getElementById("menuList");
+    const mainContent = document.querySelector("main");
 
-hamburger.addEventListener('click', () => {
-    menu.classList.toggle('show');
-});
+    // Hamburger menyu toggle
+    hamburgerBtn.addEventListener("click", () => {
+        menuList.classList.toggle("show");
+    });
 
-// Sadə alert funksiyaları nümunə üçün
-document.getElementById('homeBtn').addEventListener('click', () => {
-    alert('Ana səhifə seçildi.');
-});
+    // Klaviatura ilə də hamburger aktivliyi (Accessibility üçün)
+    hamburgerBtn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            menuList.classList.toggle("show");
+        }
+    });
 
-document.getElementById('infoBtn').addEventListener('click', () => {
-    alert('Məlumat seçildi.');
-});
+    // Menyu düymələrinə klikdə səhifə yükləmə funksiyası
+    menuList.addEventListener("click", (e) => {
+        if (e.target.tagName === "BUTTON") {
+            const type = e.target.getAttribute("data-type");
 
-document.getElementById('contactBtn').addEventListener('click', () => {
-    alert('Əlaqə seçildi.');
+            if (type === "local") {
+                const page = e.target.getAttribute("data-page");
+                fetch(page)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Fayl yüklənmədi");
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        mainContent.innerHTML = html;
+                        menuList.classList.remove("show"); // Mobil menyunu bağla
+                    })
+                    .catch(err => {
+                        mainContent.innerHTML = `<p>Səhifə yüklənərkən xəta baş verdi.</p>`;
+                        console.error(err);
+                    });
+            } else if (type === "external") {
+                const url = e.target.getAttribute("data-url");
+                mainContent.innerHTML = `<iframe src="${url}" frameborder="0" allowfullscreen></iframe>`;
+                menuList.classList.remove("show"); // Mobil menyunu bağla
+            }
+        }
+    });
 });
