@@ -1,4 +1,4 @@
-// Hamburger toggle
+// Hamburger menyu toggle
 const hamburger = document.querySelector('.hamburger');
 const menu = document.querySelector('ul.menu');
 
@@ -6,17 +6,15 @@ hamburger.addEventListener('click', () => {
     menu.classList.toggle('show');
 });
 
-// Menü düymələrinin funksionallığı (nümunə)
+// Sadə alert funksiyaları nümunə üçün
 document.getElementById('homeBtn').addEventListener('click', () => {
-    alert('Ana səhifə açıldı!');
-    // burada istəsən başqa səhifəyə yönləndirə bilərsən
-    // location.href = 'index.html';
+    alert('Ana səhifə seçildi.');
 });
+
 document.getElementById('infoBtn').addEventListener('click', () => {
-    alert('Məlumat səhifəsi açıldı!');
-    // location.href = 'info.html';
+    alert('Məlumat seçildi.');
 });
+
 document.getElementById('contactBtn').addEventListener('click', () => {
-    alert('Əlaqə səhifəsi açıldı!');
-    // location.href = 'contact.html';
+    alert('Əlaqə seçildi.');
 });
