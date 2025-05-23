@@ -29,17 +29,40 @@
         </header>
 
         <main>
-            <h1>ARCHİPLANS MMC</h1>
-            <p>2016-cı ildən xidmətinizdədir</p>
-            <p>İşinizi rahatlaşdıracaq xidmətlər artıq veb səhifəmizdə.</p>
+            <!-- Burada iframe olacaq, kliklə seçilən səhifə və ya xarici link burda açılsın -->
+            <iframe id="contentFrame" src="info.html" style="width: 100%; height: 700px; border: none;"></iframe>
         </main>
 
         <footer>
             <div class="line1">© ARCHİPLANS™ 2016</div>
-            <div class="line2">Bakı şəhəri, Xətai rayonu, M.Hadi 7; +994 (12) 408-48-08; +994 (77) 408-48-08 | www.archiplans.net | archiplans@mail.ru</div>
+            <div class="line2">
+                Bakı şəhəri, Xətai rayonu, M.Hadi 7; +994 (12) 408-48-08; +994 (77) 408-48-08 | www.archiplans.net | archiplans@mail.ru
+            </div>
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuList = document.getElementById('menuList');
+            const iframe = document.getElementById('contentFrame');
+
+            menuList.addEventListener('click', (e) => {
+                const btn = e.target.closest('button');
+                if (!btn) return;
+
+                if (btn.dataset.page) {
+                    iframe.src = btn.dataset.page;
+                } else if (btn.dataset.frame) {
+                    iframe.src = btn.dataset.frame;
+                }
+            });
+
+            // Hamburger menyu toggle üçün sadə funksionallıq
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            hamburgerBtn.addEventListener('click', () => {
+                document.querySelector('.menu').classList.toggle('open');
+            });
+        });
+    </script>
 </body>
 </html>
