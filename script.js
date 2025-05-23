@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         menuList.classList.remove("show"); // Mobil menyunu bağla
                     })
                     .catch(err => {
-                        mainContent.innerHTML = <p>Səhifə yüklənərkən xəta baş verdi.</p>;
+                        mainContent.innerHTML = `<p>Səhifə yüklənərkən xəta baş verdi.</p>`;
                         console.error(err);
                     });
             }
