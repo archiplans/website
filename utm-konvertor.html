@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Koordinat Konvertoru</title>
     <script src="https://unpkg.com/proj4@2.8.0/dist/proj4.js"></script>
     <style>
@@ -75,10 +75,10 @@
 
 <div class="konvertor-kart">
     <label for="easting">Easting (m):</label>
-    <input type="number" id="easting" placeholder="Məsələn: 500000">
+    <input type="number" id="easting" placeholder="Məsələn: 500000" />
 
     <label for="northing">Northing (m):</label>
-    <input type="number" id="northing" placeholder="Məsələn: 4649776">
+    <input type="number" id="northing" placeholder="Məsələn: 4649776" />
 
     <label for="zona">Zona seçin:</label>
     <select id="zona">
@@ -93,6 +93,11 @@
 </div>
 
 <script>
+    // UTM zonaları üçün proj4 təyin etməsi (utm zonaları əvvəlcədən təyin edilməlidir)
+    // proj4 kitabxanasında bəzi zonalar avtomatik olmaya bilər, buna görə aşağıdakı kimi əlavə edirik:
+    proj4.defs("EPSG:32638", "+proj=utm +zone=38 +datum=WGS84 +units=m +no_defs");
+    proj4.defs("EPSG:32639", "+proj=utm +zone=39 +datum=WGS84 +units=m +no_defs");
+
     function konvertEt() {
         const zona = document.getElementById('zona').value;
         const easting = parseFloat(document.getElementById('easting').value);
@@ -104,11 +109,11 @@
             return;
         }
 
-        const utmProj = `+proj=utm +zone=${zona} +datum=WGS84 +units=m +no_defs`;
-        const wgs84Proj = proj4.defs('WGS84');
+        // UTM proyeksiya kodu EPSG formasında olmalıdır
+        const utmProjCode = `EPSG:326${zona}`;
 
         try {
-            const [lon, lat] = proj4(utmProj, wgs84Proj, [easting, northing]);
+            const [lon, lat] = proj4(utmProjCode, 'WGS84', [easting, northing]);
             const latFixed = lat.toFixed(6);
             const lonFixed = lon.toFixed(6);
             document.getElementById('nəticə').innerText = `${latFixed}, ${lonFixed}`;
@@ -119,6 +124,7 @@
         } catch (error) {
             document.getElementById('nəticə').innerText = "Xəta baş verdi.";
             document.getElementById('googleLink').style.display = 'none';
+            console.error(error);
         }
     }
 </script>
