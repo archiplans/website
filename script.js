@@ -23,10 +23,24 @@ document.addEventListener("DOMContentLoaded", () => {
             const frameUrl = e.target.getAttribute("data-frame");
 
             if (page) {
-                // data-page varsa, normal səhifə kimi aç (link kimi)
-                window.location.href = page;
+                // Xarici və ya daxili HTML səhifəsini fetch ilə yüklə
+                fetch(page)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Fayl yüklənmədi");
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        mainContent.innerHTML = html;
+                        menuList.classList.remove("show"); // Mobil menyunu bağla
+                    })
+                    .catch(err => {
+                        mainContent.innerHTML = `<p>Səhifə yüklənərkən xəta baş verdi.</p>`;
+                        console.error(err);
+                    });
             } else if (frameUrl) {
-                // data-frame varsa, iframe-də aç
+                // Əgər iframe açılacaqsa
                 mainContent.innerHTML = `
                     <iframe src="${frameUrl}" frameborder="0" style="width: 100%; height: 80vh; border-radius: 10px;"></iframe>
                 `;
