@@ -19,10 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Menyu düymələrinə klikdə səhifə yükləmə funksiyası
     menuList.addEventListener("click", (e) => {
         if (e.target.tagName === "BUTTON") {
-            const type = e.target.getAttribute("data-type");
+            const page = e.target.getAttribute("data-page");
 
-            if (type === "local") {
-                const page = e.target.getAttribute("data-page");
+            if (page) {
                 fetch(page)
                     .then(response => {
                         if (!response.ok) {
@@ -35,13 +34,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         menuList.classList.remove("show"); // Mobil menyunu bağla
                     })
                     .catch(err => {
-                        mainContent.innerHTML = `<p>Səhifə yüklənərkən xəta baş verdi.</p>`;
+                        mainContent.innerHTML = <p>Səhifə yüklənərkən xəta baş verdi.</p>;
                         console.error(err);
                     });
-            } else if (type === "external") {
-                const url = e.target.getAttribute("data-url");
-                mainContent.innerHTML = `<iframe src="${url}" frameborder="0" allowfullscreen></iframe>`;
-                menuList.classList.remove("show"); // Mobil menyunu bağla
             }
         }
     });
