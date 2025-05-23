@@ -1,138 +1,115 @@
-/* Ümumi sıfırlama */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Ümumi bədən tərzi */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  color: #333;
+  min-height: 100vh;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f9f9f9;
-}
-
+/* Konteyner */
 .container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-/* Header və loqo */
+/* Header */
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background-color: #00695c; /* Açıq yaşıl fon */
-    border-bottom: 1px solid #ccc;
-    position: relative;
-    z-index: 100;
+  background-color: #00695c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  position: relative;
+  z-index: 1000;
 }
 
 .logo img {
-    height: 40px;
+  height: 40px;
 }
 
-/* Menyu */
-nav {
-    display: flex;
+/* Naviqasiya menyusu */
+nav ul.menu {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
 }
 
-.menu {
-    display: flex;
-    gap: 15px;
-    list-style: none;
+nav ul.menu li button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: background-color 0.3s ease;
+  border-radius: 4px;
 }
 
-.menu li button {
-    background: none;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    color: #333;
-    padding: 8px 12px;
-    transition: background-color 0.2s;
-}
-
-.menu li button:hover {
-    background-color: #d3f4d3;
-    border-radius: 5px;
+nav ul.menu li button:hover,
+nav ul.menu li button:focus {
+  background-color: rgba(255,255,255,0.2);
+  outline: none;
 }
 
 /* Hamburger düyməsi */
 .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 4px;
-    cursor: pointer;
-    padding: 10px;
+  display: none; /* Desktopda gizli */
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
 }
 
 .hamburger span {
-    width: 25px;
-    height: 3px;
-    background-color: #333;
-    display: block;
-    transition: all 0.3s ease;
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #dff5e0; /* Hamburgerin rəngi */
+  border-radius: 2px;
 }
 
-/* Mobil görünüş */
-@media (max-width: 768px) {
-    .menu {
-        display: none;
-        flex-direction: column;
-        background-color: #fff;
-        position: absolute;
-        top: 100%;
-        right: 20px;
-        width: 200px;
-        padding: 10px 0;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
-    }
-
-    .menu.open {
-        display: flex;
-    }
-
-    .menu li {
-        border-bottom: 1px solid #ddd;
-        padding: 10px 20px;
-    }
-
-    .menu li:last-child {
-        border-bottom: none;
-    }
-
-    .hamburger {
-        display: flex;
-    }
-
-    nav {
-        position: relative;
-    }
-}
-
-/* Main sahəsi */
+/* Main content */
 main {
-    flex: 1;
-    padding: 20px;
-    background-color: #ffffff;
+  padding: 20px 0;
+  min-height: 600px;
 }
 
 /* Footer */
 footer {
+  background-color: #00695c;
+  color: white;
+  text-align: center;
+  padding: 15px 10px;
+  font-size: 14px;
+  margin-top: 40px;
+}
+
+/* Responsive - Mobil üçün */
+
+@media (max-width: 768px) {
+  nav ul.menu {
+    display: none; /* Mobilda gizlət */
+    flex-direction: column;
     background-color: #00695c;
-    padding: 10px 20px;
-    text-align: center;
-    font-size: 14px;
-    color: #666;
-}
+    position: absolute;
+    top: 60px; /* header hündürlüyü */
+    right: 0;
+    width: 200px;
+    border-radius: 0 0 0 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 999;
+  }
 
-footer .line1 {
-    font-weight: bold;
-}
+  nav ul.menu.open {
+    display: flex;
+  }
 
-footer .line2 {
-    margin-top: 5px;
+  .hamburger {
+    display: flex; /* Mobilda görünsün */
+  }
 }
