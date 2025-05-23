@@ -1,43 +1,24 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const hamburgerBtn = document.getElementById("hamburgerBtn");
-    const menuList = document.getElementById("menuList");
-    const mainContent = document.querySelector("main");
+document.addEventListener('DOMContentLoaded', () => {
+  const buttons = document.querySelectorAll('button[data-page]');
+  const mainContent = document.getElementById('main-content');
 
-    // Hamburger menyu toggle
-    hamburgerBtn.addEventListener("click", () => {
-        menuList.classList.toggle("show");
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const page = btn.getAttribute('data-page');
+      
+      fetch(page)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Səhifə yüklənə bilmədi');
+          }
+          return response.text();
+        })
+        .then(html => {
+          mainContent.innerHTML = html;
+        })
+        .catch(error => {
+          mainContent.innerHTML = `<p>Xəta baş verdi: ${error.message}</p>`;
+        });
     });
-
-    // Klaviatura ilə də hamburger aktivliyi (Accessibility üçün)
-    hamburgerBtn.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            menuList.classList.toggle("show");
-        }
-    });
-
-    // Menyu düymələrinə klikdə səhifə yükləmə funksiyası
-    menuList.addEventListener("click", (e) => {
-        if (e.target.tagName === "BUTTON") {
-            const page = e.target.getAttribute("data-page");
-
-            if (page) {
-                fetch(page)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error("Fayl yüklənmədi");
-                        }
-                        return response.text();
-                    })
-                    .then(html => {
-                        mainContent.innerHTML = html;
-                        menuList.classList.remove("show"); // Mobil menyunu bağla
-                    })
-                    .catch(err => {
-                        mainContent.innerHTML = `<p>Səhifə yüklənərkən xəta baş verdi.</p>`;
-                        console.error(err);
-                    });
-            }
-        }
-    });
+  });
 });
