@@ -2,77 +2,80 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <title>Koordinat Konvertoru</title>
-    <script src="js/proj4.js"></script> <!-- Lokal kitabxana -->
+    <title>UTM Koordinat Konvertoru</title>
+    <script src="proj4.js"></script> <!-- Lokal fayl -->
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to right, #e0f7fa, #f1f8e9);
+            font-family: Arial, sans-serif;
+            background: #f0f9ff;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
-        .konvertor-kart {
-            background-color: #ffffff;
+        .konvertor {
+            background: white;
             padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 420px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             width: 100%;
+            max-width: 420px;
+        }
+        h2 {
+            text-align: center;
         }
         label {
             display: block;
             margin-top: 15px;
-            font-weight: 500;
+            font-weight: bold;
         }
         input, select, button {
             width: 100%;
             padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 10px;
+            margin-top: 6px;
+            margin-bottom: 12px;
             border: 1px solid #ccc;
             border-radius: 8px;
             font-size: 16px;
-            box-sizing: border-box;
         }
         button {
-            background-color: #00796b;
+            background: #00695c;
             color: white;
-            font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            border: none;
+            transition: background 0.3s ease;
         }
         button:hover {
-            background-color: #004d40;
+            background: #004d40;
         }
         #nəticə {
-            margin-top: 20px;
-            font-size: 20px;
-            font-weight: bold;
             text-align: center;
+            font-size: 18px;
+            margin-top: 15px;
         }
         #googleLink {
+            display: none;
             margin-top: 12px;
+            text-align: center;
+        }
+        #googleLink a {
+            display: inline-block;
+            padding: 10px 16px;
             background-color: #4285F4;
             color: white;
             text-decoration: none;
-            padding: 10px 16px;
             border-radius: 6px;
-            display: none;
-            text-align: center;
+            font-weight: bold;
         }
-        #googleLink:hover {
+        #googleLink a:hover {
             background-color: #3367d6;
         }
     </style>
 </head>
 <body>
 
-<div class="konvertor-kart">
+<div class="konvertor">
+    <h2>UTM Konvertoru</h2>
+
     <label for="easting">Easting (m):</label>
     <input type="number" id="easting" placeholder="Məsələn: 500000">
 
@@ -81,14 +84,16 @@
 
     <label for="zona">Zona seçin:</label>
     <select id="zona">
-        <option value="39">39N</option>
         <option value="38">38N</option>
+        <option value="39" selected>39N</option>
     </select>
 
-    <button onclick="konvertEt()">Konvert et</button>
+    <button onclick="konvertEt()">Konvert Et</button>
 
     <div id="nəticə"></div>
-    <a id="googleLink" href="#" target="_blank">Google Map</a>
+    <div id="googleLink">
+        <a id="mapaKeçid" href="#" target="_blank">Google Xəritədə Aç</a>
+    </div>
 </div>
 
 <script>
@@ -97,27 +102,27 @@
         const easting = parseFloat(document.getElementById('easting').value);
         const northing = parseFloat(document.getElementById('northing').value);
 
+        const nəticə = document.getElementById('nəticə');
+        const linkDiv = document.getElementById('googleLink');
+        const link = document.getElementById('mapaKeçid');
+
         if (isNaN(easting) || isNaN(northing)) {
-            document.getElementById('nəticə').innerText = "Zəhmət olmasa düzgün easting və northing dəyərləri daxil edin.";
-            document.getElementById('googleLink').style.display = 'none';
+            nəticə.innerText = "Zəhmət olmasa düzgün koordinatlar daxil edin.";
+            linkDiv.style.display = "none";
             return;
         }
 
-        const utmProj = `+proj=utm +zone=${zona} +datum=WGS84 +units=m +no_defs`;
-        const wgs84Proj = proj4.WGS84;
-
+        const utm = `+proj=utm +zone=${zona} +datum=WGS84 +units=m +no_defs`;
         try {
-            const [lon, lat] = proj4(utmProj, wgs84Proj, [easting, northing]);
+            const [lon, lat] = proj4(utm, proj4.WGS84, [easting, northing]);
             const latFixed = lat.toFixed(6);
             const lonFixed = lon.toFixed(6);
-            document.getElementById('nəticə').innerText = `${latFixed}, ${lonFixed}`;
-            const googleUrl = `https://www.google.com/maps?q=${latFixed},${lonFixed}`;
-            const googleLink = document.getElementById('googleLink');
-            googleLink.href = googleUrl;
-            googleLink.style.display = 'inline-block';
-        } catch (error) {
-            document.getElementById('nəticə').innerText = "Xəta baş verdi.";
-            document.getElementById('googleLink').style.display = 'none';
+            nəticə.innerText = `Koordinatlar: ${latFixed}, ${lonFixed}`;
+            link.href = `https://www.google.com/maps?q=${latFixed},${lonFixed}`;
+            linkDiv.style.display = "block";
+        } catch (e) {
+            nəticə.innerText = "Konvertasiya zamanı xəta baş verdi.";
+            linkDiv.style.display = "none";
         }
     }
 </script>
