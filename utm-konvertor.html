@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Koordinat Konvertoru</title>
-    <script src="https://unpkg.com/proj4@2.8.0/dist/proj4.js"></script>
+    <script src="js/proj4.js"></script> <!-- Lokal kitabxana -->
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -57,13 +57,12 @@
         }
         #googleLink {
             margin-top: 12px;
-            display: none;
             background-color: #4285F4;
             color: white;
             text-decoration: none;
             padding: 10px 16px;
             border-radius: 6px;
-            display: inline-block;
+            display: none;
             text-align: center;
         }
         #googleLink:hover {
@@ -105,7 +104,7 @@
         }
 
         const utmProj = `+proj=utm +zone=${zona} +datum=WGS84 +units=m +no_defs`;
-        const wgs84Proj = proj4.defs('WGS84');
+        const wgs84Proj = proj4.WGS84;
 
         try {
             const [lon, lat] = proj4(utmProj, wgs84Proj, [easting, northing]);
