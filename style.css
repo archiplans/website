@@ -286,4 +286,32 @@ footer .line2 {
         overflow: visible;
     }
 }
+.menu {
+  display: none;       /* Mobil versiyada menyu gizlidir */
+  flex-direction: column;
+  background-color: #00695c; /* İstədiyin fon rəngi */
+  position: fixed;     /* Ekranda üzərində açılması üçün */
+  top: 60px;           /* Headerin altından açılsın */
+  right: 0;
+  width: 200px;        /* Menyu eni */
+  padding: 10px;
+  border-radius: 0 0 0 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 9999;
+}
+
+.menu.open {
+  display: flex;       /* Menü açıldıqda görünür */
+}
+
+@media (min-width: 769px) {
+  .menu {
+    display: flex !important;  /* Masaüstündə menyu həmişə görünür */
+    position: static;
+    flex-direction: row;
+    width: auto;
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
 
